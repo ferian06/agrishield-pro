@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-forest-dark: #0b2818;
+  --color-forest-mid: #1b4332;
+  --color-brand-emerald: #2d6a4f;
+  --color-brand-mint: #40916c;
+  --color-brand-light: #d8f3e3;
+
+  --font-syne: 'Syne', sans-serif;
+  --font-dm: 'DM Sans', sans-serif;
+}
+
+body {
+  @apply bg-slate-200 text-slate-800 antialiased;
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
