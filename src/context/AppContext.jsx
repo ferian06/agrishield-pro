@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useCallback } from 'react';
 
 const AppContext = createContext();
 
@@ -112,6 +112,26 @@ const INITIAL_PLOTS = [
 // ─── provider ─────────────────────────────────────────────────────────────────
 
 export const AppProvider = ({ children }) => {
+  // ── auth ───────────────────────────────────────────────────────────────────
+  const [user, setUser] = useState(() => {
+    try {
+      const stored = localStorage.getItem('gg_user');
+      return stored ? JSON.parse(stored) : null;
+    } catch { return null; }
+  });
+
+  const login = useCallback((token, userData) => {
+    localStorage.setItem('gg_token', token);
+    localStorage.setItem('gg_user', JSON.stringify(userData));
+    setUser(userData);
+  }, []);
+
+  const logout = useCallback(() => {
+    localStorage.removeItem('gg_token');
+    localStorage.removeItem('gg_user');
+    setUser(null);
+  }, []);
+
   const [scanHistory, setScanHistory]   = useState(INITIAL_SCANS);
   const [activeDiagnosis, setActiveDiagnosis] = useState(null);
   const [treatmentLog, setTreatmentLog] = useState([]);
@@ -160,6 +180,8 @@ export const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={{
+      // auth
+      user, login, logout,
       // scans
       scanHistory, activeDiagnosis, addScan,
       // treatments
@@ -169,7 +191,7 @@ export const AppProvider = ({ children }) => {
       // plots
       fieldPlots,
       // guild
-      guildPosts, toggleLike, addPost,
+      guildPosts, setGuildPosts, toggleLike, addPost,
     }}>
       {children}
     </AppContext.Provider>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Heart, MessageCircle, BadgeCheck, Plus, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Heart, MessageCircle, BadgeCheck, Plus, X, Loader2 } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { communityService } from '../services/communityService';
 
@@ -8,6 +8,30 @@ const TAG_STYLES = {
   amber: 'bg-amber-50 text-amber-600 border-amber-200',
   green: 'bg-green-50 text-green-600 border-green-200',
 };
+
+const AVATAR_COLORS = ['bg-violet-500', 'bg-orange-500', 'bg-emerald-500', 'bg-blue-500', 'bg-pink-500', 'bg-teal-500'];
+
+function normalizePost(p) {
+  const initials = (p.author_name || 'U').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+  const tagColor = p.tag === 'All Clear' ? 'green' : p.tag === 'Early Blight' ? 'red' : 'amber';
+  return {
+    id: p.id,
+    author: p.author_name || 'Farmer',
+    initials,
+    avatarBg: AVATAR_COLORS[p.author_id % AVATAR_COLORS.length],
+    location: 'Community',
+    time: new Date(p.created_at).toLocaleDateString(),
+    content: p.content,
+    tag: p.tag || 'Finding',
+    tagColor,
+    verified: false,
+    confidence: null,
+    likes: Number(p.likes),
+    comments: Number(p.comment_count),
+    liked: Boolean(p.liked_by_me),
+    image: null,
+  };
+}
 
 // ─── Post card ────────────────────────────────────────────────────────────────
 function PostCard({ post, onLike }) {
@@ -97,9 +121,12 @@ function ShareModal({ onClose, onSubmit }) {
       image: null,
     };
 
-    onSubmit(post);
-    // Fire to backend (gracefully ignored if unreachable)
-    communityService.createPost({ content: post.content, tag }).catch(() => {});
+    try {
+      const { post: saved } = await communityService.createPost({ content: post.content, tag });
+      onSubmit(normalizePost(saved));
+    } catch {
+      onSubmit(post);
+    }
     setBusy(false);
     onClose();
   };
@@ -151,8 +178,32 @@ function ShareModal({ onClose, onSubmit }) {
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function GuildFeed() {
-  const { guildPosts, toggleLike, addPost, scanHistory } = useAppContext();
+  const { guildPosts, setGuildPosts, toggleLike, addPost, scanHistory } = useAppContext();
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading]     = useState(true);
+
+  // Load real posts on mount; fall back to mock data if backend unreachable
+  useEffect(() => {
+    communityService.getPosts()
+      .then(({ posts }) => {
+        if (posts && posts.length > 0) setGuildPosts(posts.map(normalizePost));
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  const handleLike = async (postId) => {
+    toggleLike(postId); // optimistic local update
+    communityService.likePost(postId).catch(() => {}); // fire-and-forget
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <Loader2 size={28} className="animate-spin text-forest-mid" />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -183,7 +234,7 @@ export default function GuildFeed() {
         {/* Posts */}
         <div className="space-y-3">
           {guildPosts.map(post => (
-            <PostCard key={post.id} post={post} onLike={toggleLike} />
+            <PostCard key={post.id} post={post} onLike={handleLike} />
           ))}
         </div>
 
