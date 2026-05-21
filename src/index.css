@@ -2,26 +2,41 @@
 @import "tailwindcss";
 
 @theme {
-  --color-forest-dark: #0b2818;
-  --color-forest-mid: #1b4332;
-  --color-brand-emerald: #2d6a4f;
-  --color-brand-mint: #40916c;
-  --color-brand-light: #d8f3e3;
+  --color-forest-dark:    #0b2818;
+  --color-forest-mid:     #1b4332;
+  --color-brand-emerald:  #2d6a4f;
+  --color-brand-mint:     #40916c;
+  --color-brand-light:    #d8f3e3;
 
   --font-syne: 'Syne', sans-serif;
-  --font-dm: 'DM Sans', sans-serif;
+  --font-dm:   'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
 }
 
 body {
-  @apply bg-slate-200 text-slate-800 antialiased;
-  margin: 0;
+  @apply bg-slate-100 text-slate-800 antialiased;
   font-family: 'DM Sans', sans-serif;
+  /* respect iPhone notch / home indicator */
+  padding-top:    env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
+/* hide scrollbars globally but keep scroll */
 .scrollbar-hide {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* skeleton loading pulse */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.45; }
 }
+.skeleton { animation: skeleton-pulse 1.6s ease-in-out infinite; }
