@@ -103,13 +103,20 @@ router.post('/', requireAuth, async (req, res) => {
     if (!cropType) return res.status(400).json({ message: 'cropType is required.' });
 
     let result;
+    let aiProvider = 'stub';
 
-    // Try real AI first, fall back to stub
-    if (image) {
+    if (!process.env.GEMINI_API_KEY) {
+      console.warn('[scan] GEMINI_API_KEY not set — using stub');
+    } else if (!image) {
+      console.warn('[scan] No image received — using stub');
+    } else {
       try {
+        console.log('[scan] Calling Gemini...');
         result = await diagnoseWithGemini(image);
+        aiProvider = 'gemini';
+        console.log('[scan] Gemini result:', result?.disease);
       } catch (err) {
-        console.warn('Gemini failed, using stub:', err.message);
+        console.error('[scan] Gemini error:', err.message);
       }
     }
 
@@ -127,6 +134,7 @@ router.post('/', requireAuth, async (req, res) => {
       confidence: result.confidence,
       severity: result.severity,
       recommendations: result.recommendations,
+      aiProvider,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
