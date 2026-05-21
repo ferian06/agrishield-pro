@@ -171,7 +171,7 @@ function ScannerView({ onResult }) {
         {/* Plot label */}
         {!cameraError && cameraReady && !isProcessing && (
           <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1.5 rounded-full">
-            📍 {MOCK_RESULTS[selectedModel].crop}
+            📍 {selectedModel.charAt(0).toUpperCase() + selectedModel.slice(1)}
           </div>
         )}
 
@@ -216,8 +216,23 @@ function ScannerView({ onResult }) {
           disabled={isProcessing}
           className="w-full p-3.5 bg-slate-50 border-[1.5px] border-slate-200 rounded-xl text-sm font-semibold text-slate-700 outline-none focus:border-forest-mid appearance-none cursor-pointer transition-colors"
         >
-          <option value="tomato">Tomato — Early Blight Detection</option>
-          <option value="corn">Corn — Common Rust Detection</option>
+          <option value="tomato">Tomato</option>
+          <option value="corn">Corn / Maize</option>
+          <option value="rice">Rice</option>
+          <option value="wheat">Wheat</option>
+          <option value="potato">Potato</option>
+          <option value="cassava">Cassava</option>
+          <option value="banana">Banana / Plantain</option>
+          <option value="pepper">Pepper / Chilli</option>
+          <option value="soybean">Soybean</option>
+          <option value="coffee">Coffee</option>
+          <option value="sugarcane">Sugarcane</option>
+          <option value="mango">Mango</option>
+          <option value="citrus">Citrus (Orange / Lemon)</option>
+          <option value="groundnut">Groundnut / Peanut</option>
+          <option value="onion">Onion / Garlic</option>
+          <option value="cabbage">Cabbage / Lettuce</option>
+          <option value="other">Other plant</option>
         </select>
 
         <button
