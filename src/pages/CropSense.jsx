@@ -100,12 +100,19 @@ function ScannerView({ onResult }) {
     const snapshot = captureFrame();
     setIsProcessing(true);
 
-    // Attempt real API; fall back to mock on failure
     try {
       const result = await cropService.submitScan(snapshot, selectedModel);
-      onResult({ id: Date.now(), ...result, bg: snapshot || '', date: 'Just now' });
+      onResult({
+        id: result.scanId || Date.now(),
+        crop: selectedModel.charAt(0).toUpperCase() + selectedModel.slice(1) + ' Plant',
+        disease: result.disease,
+        confidence: Math.round((result.confidence || 0) * 1000) / 10, // 0.87 → 87.0
+        severity: result.severity === 'High' ? 'danger' : result.severity === 'Moderate' ? 'warning' : 'success',
+        recommendations: result.recommendations,
+        bg: snapshot || '',
+        date: 'Just now',
+      });
     } catch {
-      // backend not connected — use mock data
       await new Promise(r => setTimeout(r, 2200));
       const mock = MOCK_RESULTS[selectedModel];
       onResult({ id: Date.now(), ...mock, bg: snapshot || '', date: 'Just now' });
@@ -291,20 +298,17 @@ function ResultsView({ data, onNewScan }) {
       <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
         <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-3">Recommended Actions</p>
         <ul className="space-y-2 text-sm text-slate-700 leading-relaxed">
-          {isDanger ? (
-            <>
-              <li className="flex gap-2"><span className="text-red-400 font-bold">•</span>Apply copper-based fungicide within 48 hours</li>
-              <li className="flex gap-2"><span className="text-red-400 font-bold">•</span>Increase air circulation around crop rows</li>
-              <li className="flex gap-2"><span className="text-red-400 font-bold">•</span>Remove and destroy visibly infected leaves</li>
-              <li className="flex gap-2"><span className="text-red-400 font-bold">•</span>Monitor daily for spread to adjacent plots</li>
-            </>
-          ) : (
-            <>
-              <li className="flex gap-2"><span className="text-green-400 font-bold">•</span>Continue standard monitoring schedule</li>
-              <li className="flex gap-2"><span className="text-green-400 font-bold">•</span>Maintain current irrigation levels</li>
-              <li className="flex gap-2"><span className="text-green-400 font-bold">•</span>Log observation in field journal</li>
-            </>
-          )}
+          {(data.recommendations?.length > 0
+            ? data.recommendations
+            : isDanger
+              ? ['Apply copper-based fungicide within 48 hours', 'Increase air circulation around crop rows', 'Remove and destroy visibly infected leaves', 'Monitor daily for spread to adjacent plots']
+              : ['Continue standard monitoring schedule', 'Maintain current irrigation levels', 'Log observation in field journal']
+          ).map((rec, i) => (
+            <li key={i} className="flex gap-2">
+              <span className={`font-bold ${isDanger ? 'text-red-400' : 'text-green-400'}`}>•</span>
+              {rec}
+            </li>
+          ))}
         </ul>
       </div>
 

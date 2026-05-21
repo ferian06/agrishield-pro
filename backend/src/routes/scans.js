@@ -4,8 +4,72 @@ const { requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
 
-// Stub AI diagnosis — swap for Plant.id / Roboflow API when ready
-function diagnose(cropType) {
+// ── Real AI diagnosis via Google Gemini ───────────────────────────────────────
+async function diagnoseWithGemini(imageBase64) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return null;
+
+  const { default: fetch } = await import('node-fetch');
+
+  // Strip data URL prefix if present (e.g. "data:image/jpeg;base64,...")
+  const base64Data = imageBase64.includes(',')
+    ? imageBase64.split(',')[1]
+    : imageBase64;
+
+  const prompt = `You are an expert plant pathologist. Analyze this plant leaf image carefully.
+
+Return ONLY a valid JSON object — no markdown, no explanation, just the JSON:
+{
+  "disease": "exact disease name, or Healthy if no disease found",
+  "confidence": 0.87,
+  "severity": "None or Moderate or High",
+  "recommendations": ["specific action 1", "specific action 2", "specific action 3", "specific action 4"]
+}
+
+Rules:
+- If the plant looks healthy: disease = "Healthy", severity = "None", confidence > 0.88
+- If you see disease symptoms: name the specific disease, set severity based on how bad it looks
+- If you cannot see a plant leaf clearly: disease = "No plant detected — point camera at a leaf", severity = "None", confidence = 0.5, recommendations = ["Move closer to the plant", "Ensure good lighting", "Point camera at a leaf", "Tap scan again"]
+- recommendations must be specific and actionable for a farmer
+- confidence must be a number between 0 and 1`;
+
+  const body = {
+    contents: [{
+      parts: [
+        {
+          inline_data: {
+            mime_type: 'image/jpeg',
+            data: base64Data,
+          },
+        },
+        { text: prompt },
+      ],
+    }],
+    generationConfig: {
+      temperature: 0.1,
+      maxOutputTokens: 512,
+    },
+  };
+
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
+  );
+
+  if (!res.ok) throw new Error(`Gemini API error: ${res.status}`);
+
+  const data = await res.json();
+  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+  // Extract JSON from response (strip any accidental markdown fences)
+  const jsonMatch = text.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) throw new Error('Gemini returned no JSON');
+
+  return JSON.parse(jsonMatch[0]);
+}
+
+// ── Fallback stub (used if no Gemini key or API fails) ────────────────────────
+function diagnoseStub(cropType) {
   const library = {
     tomato: [
       { disease: 'Early Blight',   confidence: 0.87, severity: 'Moderate', recommendations: ['Remove affected leaves immediately', 'Apply copper-based fungicide every 7–10 days', 'Avoid overhead watering', 'Ensure good air circulation'] },
@@ -13,9 +77,9 @@ function diagnose(cropType) {
       { disease: 'Healthy',        confidence: 0.95, severity: 'None',     recommendations: ['Continue current care routine', 'Monitor weekly for early signs of stress', 'Maintain consistent watering schedule'] },
     ],
     corn: [
-      { disease: 'Gray Leaf Spot',              confidence: 0.83, severity: 'Moderate', recommendations: ['Apply foliar fungicide at early signs', 'Rotate crops next season', 'Use resistant hybrid varieties', 'Improve field drainage'] },
-      { disease: 'Northern Corn Leaf Blight',   confidence: 0.88, severity: 'High',     recommendations: ['Apply triazole fungicide', 'Remove heavily infected debris after harvest', 'Plant resistant varieties', 'Scout fields every 5–7 days'] },
-      { disease: 'Healthy',                     confidence: 0.93, severity: 'None',     recommendations: ['Crop looks healthy — continue monitoring', 'Maintain soil fertility', 'Check for pest pressure during tasselling'] },
+      { disease: 'Gray Leaf Spot',            confidence: 0.83, severity: 'Moderate', recommendations: ['Apply foliar fungicide at early signs', 'Rotate crops next season', 'Use resistant hybrid varieties', 'Improve field drainage'] },
+      { disease: 'Northern Corn Leaf Blight', confidence: 0.88, severity: 'High',     recommendations: ['Apply triazole fungicide', 'Remove heavily infected debris after harvest', 'Plant resistant varieties', 'Scout fields every 5–7 days'] },
+      { disease: 'Healthy',                   confidence: 0.93, severity: 'None',     recommendations: ['Crop looks healthy — continue monitoring', 'Maintain soil fertility', 'Check for pest pressure during tasselling'] },
     ],
     wheat: [
       { disease: 'Stripe Rust',    confidence: 0.89, severity: 'High',     recommendations: ['Apply propiconazole or tebuconazole fungicide', 'Scout weekly', 'Use certified disease-free seed', 'Report outbreaks to local agriculture office'] },
@@ -33,26 +97,38 @@ router.post('/', requireAuth, async (req, res) => {
     const { image, cropType } = req.body;
     if (!cropType) return res.status(400).json({ message: 'cropType is required.' });
 
-    const result_diag = diagnose(cropType);
-    const result = await db.execute({
+    let result;
+
+    // Try real AI first, fall back to stub
+    if (image) {
+      try {
+        result = await diagnoseWithGemini(image);
+      } catch (err) {
+        console.warn('Gemini failed, using stub:', err.message);
+      }
+    }
+
+    if (!result) result = diagnoseStub(cropType);
+
+    const dbResult = await db.execute({
       sql: `INSERT INTO scans (user_id, crop_type, image_data, disease, confidence, severity, recommendations, status)
             VALUES (?, ?, ?, ?, ?, ?, ?, 'completed')`,
-      args: [req.user.id, cropType, image || null, result_diag.disease, result_diag.confidence, result_diag.severity, JSON.stringify(result_diag.recommendations)],
+      args: [req.user.id, cropType, image || null, result.disease, result.confidence, result.severity, JSON.stringify(result.recommendations)],
     });
 
     res.status(201).json({
-      scanId: Number(result.lastInsertRowid),
-      disease: result_diag.disease,
-      confidence: result_diag.confidence,
-      severity: result_diag.severity,
-      recommendations: result_diag.recommendations,
+      scanId: Number(dbResult.lastInsertRowid),
+      disease: result.disease,
+      confidence: result.confidence,
+      severity: result.severity,
+      recommendations: result.recommendations,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// GET /v1/scans/history  — must come BEFORE /:id routes
+// GET /v1/scans/history
 router.get('/history', requireAuth, async (req, res) => {
   try {
     const scans = all(await db.execute({
