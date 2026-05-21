@@ -16,22 +16,27 @@ async function diagnoseWithGemini(imageBase64) {
     ? imageBase64.split(',')[1]
     : imageBase64;
 
-  const prompt = `You are an expert plant pathologist. Analyze this plant leaf image carefully.
+  const prompt = `You are a strict plant disease detection system. Your FIRST job is to verify the image actually contains a plant leaf or crop.
 
-Return ONLY a valid JSON object — no markdown, no explanation, just the JSON:
-{
-  "disease": "exact disease name, or Healthy if no disease found",
-  "confidence": 0.87,
-  "severity": "None or Moderate or High",
-  "recommendations": ["specific action 1", "specific action 2", "specific action 3", "specific action 4"]
-}
+STEP 1 — Is there a plant leaf or crop visible in this image?
+- If NO (the image shows a hand, person, animal, food, object, ground, sky, or anything that is not a plant): immediately return the "no plant" response below.
+- If YES: proceed to disease analysis.
+
+Return ONLY a valid JSON object — no markdown, no explanation, just raw JSON:
+
+If NO plant detected:
+{"disease":"No plant detected — point camera at a leaf","confidence":0.99,"severity":"None","recommendations":["Point your camera directly at a plant leaf","Move closer so the leaf fills the frame","Ensure the leaf is well lit","Avoid scanning hands, objects or background"]}
+
+If plant IS detected and healthy:
+{"disease":"Healthy","confidence":0.92,"severity":"None","recommendations":["Plant looks healthy — continue regular monitoring","Maintain current watering and fertiliser schedule","Check again in 7 days","Watch for early discolouration or spots"]}
+
+If plant IS detected and diseased:
+{"disease":"exact disease name","confidence":0.85,"severity":"Moderate or High","recommendations":["specific treatment 1","specific treatment 2","specific treatment 3","specific treatment 4"]}
 
 Rules:
-- If the plant looks healthy: disease = "Healthy", severity = "None", confidence > 0.88
-- If you see disease symptoms: name the specific disease, set severity based on how bad it looks
-- If you cannot see a plant leaf clearly: disease = "No plant detected — point camera at a leaf", severity = "None", confidence = 0.5, recommendations = ["Move closer to the plant", "Ensure good lighting", "Point camera at a leaf", "Tap scan again"]
-- recommendations must be specific and actionable for a farmer
-- confidence must be a number between 0 and 1`;
+- confidence must be a decimal between 0 and 1
+- severity must be exactly: None, Moderate, or High
+- Be strict: if in doubt whether it is a plant, return the no-plant response`;
 
   const body = {
     contents: [{
