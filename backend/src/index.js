@@ -6,6 +6,7 @@ const authRoutes      = require('./routes/auth');
 const communityRoutes = require('./routes/community');
 const scanRoutes      = require('./routes/scans');
 const weatherRoutes   = require('./routes/weather');
+const adminRoutes     = require('./routes/admin');
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use('/v1/auth',      authRoutes);
 app.use('/v1/community', communityRoutes);
 app.use('/v1/scans',     scanRoutes);
 app.use('/v1/weather',   weatherRoutes);
+app.use('/v1/admin',     adminRoutes);
 
 app.use((_req, res) => res.status(404).json({ message: 'Route not found.' }));
 app.use((err, _req, res, _next) => {
