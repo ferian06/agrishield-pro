@@ -85,6 +85,61 @@ function getRecommendations(disease, isHealthy) {
   ];
 }
 
+// ── Groq vision fallback ──────────────────────────────────────────────────────
+async function diagnoseWithGroq(imageBase64) {
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) return null;
+
+  const { default: fetch } = await import('node-fetch');
+
+  const base64Data = imageBase64.includes(',')
+    ? imageBase64.split(',')[1]
+    : imageBase64;
+
+  const prompt = `You are a strict plant disease detection system. First check: does this image show a plant leaf or crop?
+
+If NO plant visible return exactly this JSON:
+{"disease":"No plant detected — point camera at a leaf","confidence":0.99,"severity":"None","recommendations":["Point camera at a plant leaf","Move closer so the leaf fills the frame","Ensure good lighting","Tap scan again"]}
+
+If plant IS healthy:
+{"disease":"Healthy","confidence":0.92,"severity":"None","recommendations":["Plant looks healthy","Continue regular monitoring","Check again in 7 days","Watch for early discolouration"]}
+
+If plant IS diseased:
+{"disease":"exact disease name","confidence":0.85,"severity":"Moderate or High","recommendations":["treatment 1","treatment 2","treatment 3","treatment 4"]}
+
+Return ONLY raw JSON, no markdown, no explanation.`;
+
+  const body = {
+    model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+    messages: [{
+      role: 'user',
+      content: [
+        { type: 'image_url', image_url: { url: `data:image/jpeg;base64,${base64Data}` } },
+        { type: 'text', text: prompt },
+      ],
+    }],
+    max_tokens: 512,
+    temperature: 0.1,
+  };
+
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const errBody = await res.text();
+    throw new Error(`Groq error: ${res.status} — ${errBody.slice(0, 200)}`);
+  }
+
+  const data = await res.json();
+  const text = data.choices?.[0]?.message?.content || '';
+  const jsonMatch = text.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) throw new Error('Groq returned no JSON');
+  return JSON.parse(jsonMatch[0]);
+}
+
 // ── Gemini fallback ───────────────────────────────────────────────────────────
 async function diagnoseWithGemini(imageBase64) {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -169,7 +224,18 @@ router.post('/', requireAuth, async (req, res) => {
         }
       }
 
-      // 2. Try Gemini if HF failed
+      // 2. Try Groq if HF failed
+      if (!result && process.env.GROQ_API_KEY) {
+        try {
+          console.log('[scan] Calling Groq...');
+          result = await diagnoseWithGroq(image);
+          if (result) { aiProvider = 'groq'; console.log('[scan] Groq result:', result.disease); }
+        } catch (err) {
+          console.error('[scan] Groq error:', err.message);
+        }
+      }
+
+      // 3. Try Gemini if Groq failed
       if (!result && process.env.GEMINI_API_KEY) {
         try {
           console.log('[scan] Calling Gemini...');
