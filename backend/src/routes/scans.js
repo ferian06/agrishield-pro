@@ -4,56 +4,114 @@ const { requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
 
-// ── Real AI diagnosis via Google Gemini ───────────────────────────────────────
+// ── Hugging Face plant disease detection ──────────────────────────────────────
+async function diagnoseWithHuggingFace(imageBase64) {
+  const token = process.env.HF_TOKEN;
+  if (!token) return null;
+
+  const { default: fetch } = await import('node-fetch');
+
+  const base64Data = imageBase64.includes(',')
+    ? imageBase64.split(',')[1]
+    : imageBase64;
+
+  const imageBuffer = Buffer.from(base64Data, 'base64');
+
+  const res = await fetch(
+    'https://api-inference.huggingface.co/models/linkanjarad/plant-disease-detection',
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'image/jpeg',
+      },
+      body: imageBuffer,
+    }
+  );
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`HF API error: ${res.status} — ${err.slice(0, 200)}`);
+  }
+
+  const results = await res.json();
+
+  // Model returns [{ label: 'Tomato___Early_blight', score: 0.92 }, ...]
+  if (!Array.isArray(results) || results.length === 0) return null;
+
+  const top = results[0];
+  const parts = top.label.split('___');
+  const diseasePart = parts[1] ? parts[1].replace(/_/g, ' ').trim() : parts[0].replace(/_/g, ' ').trim();
+  const isHealthy = diseasePart.toLowerCase().includes('healthy');
+
+  const disease     = isHealthy ? 'Healthy' : diseasePart;
+  const confidence  = top.score;
+  const severity    = isHealthy ? 'None' : confidence > 0.7 ? 'High' : 'Moderate';
+  const recommendations = getRecommendations(disease, isHealthy);
+
+  return { disease, confidence, severity, recommendations };
+}
+
+function getRecommendations(disease, isHealthy) {
+  if (isHealthy) return [
+    'Plant looks healthy — continue regular monitoring',
+    'Maintain consistent watering schedule',
+    'Check again in 7 days',
+    'Watch for early discolouration or spots',
+  ];
+
+  const map = {
+    'early blight':     ['Remove infected leaves immediately', 'Apply copper-based fungicide every 7 days', 'Avoid overhead watering', 'Ensure good air circulation between plants'],
+    'late blight':      ['Apply mancozeb or chlorothalonil fungicide immediately', 'Remove and destroy infected plant material', 'Do not compost affected tissue', 'Monitor neighbouring plants closely'],
+    'common rust':      ['Apply foliar fungicide at first signs', 'Remove severely infected leaves', 'Improve air circulation', 'Use resistant varieties next season'],
+    'leaf spot':        ['Apply copper fungicide spray', 'Remove and dispose of infected leaves', 'Avoid wetting foliage when watering', 'Maintain proper plant spacing'],
+    'powdery mildew':   ['Apply sulfur-based fungicide', 'Improve air circulation around plants', 'Avoid excess nitrogen fertiliser', 'Water at base, not on leaves'],
+    'bacterial spot':   ['Apply copper bactericide', 'Remove infected plant parts', 'Avoid working with plants when wet', 'Rotate crops next season'],
+    'leaf blight':      ['Apply fungicide spray immediately', 'Remove infected plant debris', 'Avoid overhead irrigation', 'Scout field every 5 days'],
+    'mosaic virus':     ['Remove and destroy infected plants immediately', 'Control aphid populations with insecticide', 'Use virus-free seed next season', 'Disinfect tools between plants'],
+    'yellow leaf curl': ['Remove infected plants to prevent spread', 'Control whitefly with insecticide', 'Use reflective mulch to deter insects', 'Plant resistant varieties'],
+  };
+
+  const d = disease.toLowerCase();
+  for (const [key, recs] of Object.entries(map)) {
+    if (d.includes(key)) return recs;
+  }
+
+  return [
+    `Treat for ${disease} with appropriate fungicide`,
+    'Remove and destroy visibly infected plant material',
+    'Improve air circulation around affected plants',
+    'Consult your local agricultural extension officer',
+  ];
+}
+
+// ── Gemini fallback ───────────────────────────────────────────────────────────
 async function diagnoseWithGemini(imageBase64) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return null;
 
   const { default: fetch } = await import('node-fetch');
 
-  // Strip data URL prefix if present (e.g. "data:image/jpeg;base64,...")
   const base64Data = imageBase64.includes(',')
     ? imageBase64.split(',')[1]
     : imageBase64;
 
-  const prompt = `You are a strict plant disease detection system. Your FIRST job is to verify the image actually contains a plant leaf or crop.
+  const prompt = `You are a strict plant disease detection system. First check: does this image show a plant leaf or crop?
 
-STEP 1 — Is there a plant leaf or crop visible in this image?
-- If NO (the image shows a hand, person, animal, food, object, ground, sky, or anything that is not a plant): immediately return the "no plant" response below.
-- If YES: proceed to disease analysis.
+If NO plant visible, return exactly:
+{"disease":"No plant detected — point camera at a leaf","confidence":0.99,"severity":"None","recommendations":["Point camera at a plant leaf","Move closer so the leaf fills the frame","Ensure good lighting","Tap scan again"]}
 
-Return ONLY a valid JSON object — no markdown, no explanation, just raw JSON:
+If plant IS healthy, return:
+{"disease":"Healthy","confidence":0.92,"severity":"None","recommendations":["Plant looks healthy","Continue regular monitoring","Check again in 7 days","Watch for early discolouration"]}
 
-If NO plant detected:
-{"disease":"No plant detected — point camera at a leaf","confidence":0.99,"severity":"None","recommendations":["Point your camera directly at a plant leaf","Move closer so the leaf fills the frame","Ensure the leaf is well lit","Avoid scanning hands, objects or background"]}
+If plant IS diseased:
+{"disease":"exact disease name","confidence":0.85,"severity":"Moderate or High","recommendations":["treatment 1","treatment 2","treatment 3","treatment 4"]}
 
-If plant IS detected and healthy:
-{"disease":"Healthy","confidence":0.92,"severity":"None","recommendations":["Plant looks healthy — continue regular monitoring","Maintain current watering and fertiliser schedule","Check again in 7 days","Watch for early discolouration or spots"]}
-
-If plant IS detected and diseased:
-{"disease":"exact disease name","confidence":0.85,"severity":"Moderate or High","recommendations":["specific treatment 1","specific treatment 2","specific treatment 3","specific treatment 4"]}
-
-Rules:
-- confidence must be a decimal between 0 and 1
-- severity must be exactly: None, Moderate, or High
-- Be strict: if in doubt whether it is a plant, return the no-plant response`;
+Return ONLY raw JSON, no markdown.`;
 
   const body = {
-    contents: [{
-      parts: [
-        {
-          inline_data: {
-            mime_type: 'image/jpeg',
-            data: base64Data,
-          },
-        },
-        { text: prompt },
-      ],
-    }],
-    generationConfig: {
-      temperature: 0.1,
-      maxOutputTokens: 512,
-    },
+    contents: [{ parts: [{ inline_data: { mime_type: 'image/jpeg', data: base64Data } }, { text: prompt }] }],
+    generationConfig: { temperature: 0.1, maxOutputTokens: 512 },
   };
 
   const res = await fetch(
@@ -63,39 +121,30 @@ Rules:
 
   if (!res.ok) {
     const errBody = await res.text();
-    throw new Error(`Gemini API error: ${res.status} — ${errBody.slice(0, 200)}`);
+    throw new Error(`Gemini error: ${res.status} — ${errBody.slice(0, 200)}`);
   }
 
   const data = await res.json();
   const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-
-  // Extract JSON from response (strip any accidental markdown fences)
   const jsonMatch = text.match(/\{[\s\S]*\}/);
   if (!jsonMatch) throw new Error('Gemini returned no JSON');
-
   return JSON.parse(jsonMatch[0]);
 }
 
-// ── Fallback stub (used if no Gemini key or API fails) ────────────────────────
+// ── Stub fallback ─────────────────────────────────────────────────────────────
 function diagnoseStub(cropType) {
   const library = {
-    tomato: [
-      { disease: 'Early Blight',   confidence: 0.87, severity: 'Moderate', recommendations: ['Remove affected leaves immediately', 'Apply copper-based fungicide every 7–10 days', 'Avoid overhead watering', 'Ensure good air circulation'] },
-      { disease: 'Late Blight',    confidence: 0.91, severity: 'High',     recommendations: ['Apply mancozeb or chlorothalonil fungicide', 'Destroy infected plant material', 'Do not compost affected tissue', 'Monitor neighbouring plants closely'] },
-      { disease: 'Healthy',        confidence: 0.95, severity: 'None',     recommendations: ['Continue current care routine', 'Monitor weekly for early signs of stress', 'Maintain consistent watering schedule'] },
+    tomato:  [
+      { disease: 'Early Blight',   confidence: 0.87, severity: 'Moderate', recommendations: ['Remove affected leaves', 'Apply copper fungicide every 7 days', 'Avoid overhead watering', 'Ensure good air circulation'] },
+      { disease: 'Late Blight',    confidence: 0.91, severity: 'High',     recommendations: ['Apply mancozeb fungicide immediately', 'Destroy infected material', 'Do not compost affected tissue', 'Monitor neighbouring plants'] },
+      { disease: 'Healthy',        confidence: 0.95, severity: 'None',     recommendations: ['Continue current care routine', 'Monitor weekly', 'Maintain consistent watering'] },
     ],
-    corn: [
-      { disease: 'Gray Leaf Spot',            confidence: 0.83, severity: 'Moderate', recommendations: ['Apply foliar fungicide at early signs', 'Rotate crops next season', 'Use resistant hybrid varieties', 'Improve field drainage'] },
-      { disease: 'Northern Corn Leaf Blight', confidence: 0.88, severity: 'High',     recommendations: ['Apply triazole fungicide', 'Remove heavily infected debris after harvest', 'Plant resistant varieties', 'Scout fields every 5–7 days'] },
-      { disease: 'Healthy',                   confidence: 0.93, severity: 'None',     recommendations: ['Crop looks healthy — continue monitoring', 'Maintain soil fertility', 'Check for pest pressure during tasselling'] },
-    ],
-    wheat: [
-      { disease: 'Stripe Rust',    confidence: 0.89, severity: 'High',     recommendations: ['Apply propiconazole or tebuconazole fungicide', 'Scout weekly', 'Use certified disease-free seed', 'Report outbreaks to local agriculture office'] },
-      { disease: 'Powdery Mildew', confidence: 0.84, severity: 'Moderate', recommendations: ['Apply sulfur-based fungicide', 'Improve air circulation', 'Avoid excess nitrogen fertiliser', 'Remove crop debris after harvest'] },
-      { disease: 'Healthy',        confidence: 0.96, severity: 'None',     recommendations: ['No disease detected', 'Continue standard crop management', 'Reassess at heading stage'] },
+    default: [
+      { disease: 'Leaf Spot',      confidence: 0.82, severity: 'Moderate', recommendations: ['Apply copper fungicide', 'Remove infected leaves', 'Avoid wetting foliage', 'Maintain plant spacing'] },
+      { disease: 'Healthy',        confidence: 0.93, severity: 'None',     recommendations: ['Plant looks healthy', 'Continue monitoring', 'Maintain good soil health'] },
     ],
   };
-  const pool = library[cropType?.toLowerCase()] || library.tomato;
+  const pool = library[cropType?.toLowerCase()] || library.default;
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
@@ -105,25 +154,39 @@ router.post('/', requireAuth, async (req, res) => {
     const { image, cropType } = req.body;
     if (!cropType) return res.status(400).json({ message: 'cropType is required.' });
 
-    let result;
+    let result = null;
     let aiProvider = 'stub';
 
-    if (!process.env.GEMINI_API_KEY) {
-      console.warn('[scan] GEMINI_API_KEY not set — using stub');
-    } else if (!image) {
-      console.warn('[scan] No image received — using stub');
-    } else {
-      try {
-        console.log('[scan] Calling Gemini...');
-        result = await diagnoseWithGemini(image);
-        aiProvider = 'gemini';
-        console.log('[scan] Gemini result:', result?.disease);
-      } catch (err) {
-        console.error('[scan] Gemini error:', err.message);
+    if (image) {
+      // 1. Try Hugging Face
+      if (process.env.HF_TOKEN) {
+        try {
+          console.log('[scan] Calling Hugging Face...');
+          result = await diagnoseWithHuggingFace(image);
+          if (result) { aiProvider = 'huggingface'; console.log('[scan] HF result:', result.disease); }
+        } catch (err) {
+          console.error('[scan] HF error:', err.message);
+        }
       }
+
+      // 2. Try Gemini if HF failed
+      if (!result && process.env.GEMINI_API_KEY) {
+        try {
+          console.log('[scan] Calling Gemini...');
+          result = await diagnoseWithGemini(image);
+          if (result) { aiProvider = 'gemini'; console.log('[scan] Gemini result:', result.disease); }
+        } catch (err) {
+          console.error('[scan] Gemini error:', err.message);
+        }
+      }
+    } else {
+      console.warn('[scan] No image received — using stub');
     }
 
-    if (!result) result = diagnoseStub(cropType);
+    if (!result) {
+      console.warn('[scan] All AI providers failed — using stub');
+      result = diagnoseStub(cropType);
+    }
 
     const dbResult = await db.execute({
       sql: `INSERT INTO scans (user_id, crop_type, image_data, disease, confidence, severity, recommendations, status)
