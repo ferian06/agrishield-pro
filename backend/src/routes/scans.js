@@ -96,18 +96,14 @@ async function diagnoseWithGroq(imageBase64) {
     ? imageBase64.split(',')[1]
     : imageBase64;
 
-  const prompt = `You are a strict plant disease detection system. First check: does this image show a plant leaf or crop?
+  const prompt = `You are a plant disease detection system. Analyse the image and respond with ONLY a JSON object — no markdown, no explanation, nothing else.
 
-If NO plant visible return exactly this JSON:
-{"disease":"No plant detected — point camera at a leaf","confidence":0.99,"severity":"None","recommendations":["Point camera at a plant leaf","Move closer so the leaf fills the frame","Ensure good lighting","Tap scan again"]}
+Rules:
+- If no plant is visible: {"disease":"No plant detected","confidence":0.99,"severity":"None","recommendations":["Point camera at a plant leaf","Move closer","Ensure good lighting","Tap scan again"]}
+- If plant is healthy: {"disease":"Healthy","confidence":0.93,"severity":"None","recommendations":["Plant looks healthy — continue regular care","Monitor weekly for changes","Maintain consistent watering","Check again in 7 days"]}
+- If plant is diseased: {"disease":"<exact disease name>","confidence":<0.70-0.97>,"severity":"Moderate" or "High","recommendations":["<specific treatment 1>","<specific treatment 2>","<specific treatment 3>","<specific treatment 4>"]}
 
-If plant IS healthy:
-{"disease":"Healthy","confidence":0.92,"severity":"None","recommendations":["Plant looks healthy","Continue regular monitoring","Check again in 7 days","Watch for early discolouration"]}
-
-If plant IS diseased:
-{"disease":"exact disease name","confidence":0.85,"severity":"Moderate or High","recommendations":["treatment 1","treatment 2","treatment 3","treatment 4"]}
-
-Return ONLY raw JSON, no markdown, no explanation.`;
+Respond with JSON only.`;
 
   const body = {
     model: 'meta-llama/llama-4-scout-17b-16e-instruct',
@@ -213,19 +209,8 @@ router.post('/', requireAuth, async (req, res) => {
     let aiProvider = 'stub';
 
     if (image) {
-      // 1. Try Hugging Face
-      if (process.env.HF_TOKEN) {
-        try {
-          console.log('[scan] Calling Hugging Face...');
-          result = await diagnoseWithHuggingFace(image);
-          if (result) { aiProvider = 'huggingface'; console.log('[scan] HF result:', result.disease); }
-        } catch (err) {
-          console.error('[scan] HF error:', err.message);
-        }
-      }
-
-      // 2. Try Groq if HF failed
-      if (!result && process.env.GROQ_API_KEY) {
+      // 1. Try Groq (free, fast vision model)
+      if (process.env.GROQ_API_KEY) {
         try {
           console.log('[scan] Calling Groq...');
           result = await diagnoseWithGroq(image);
@@ -235,7 +220,7 @@ router.post('/', requireAuth, async (req, res) => {
         }
       }
 
-      // 3. Try Gemini if Groq failed
+      // 2. Try Gemini if Groq failed (free, 1500 req/day)
       if (!result && process.env.GEMINI_API_KEY) {
         try {
           console.log('[scan] Calling Gemini...');
@@ -243,6 +228,17 @@ router.post('/', requireAuth, async (req, res) => {
           if (result) { aiProvider = 'gemini'; console.log('[scan] Gemini result:', result.disease); }
         } catch (err) {
           console.error('[scan] Gemini error:', err.message);
+        }
+      }
+
+      // 3. Try Hugging Face as last resort
+      if (!result && process.env.HF_TOKEN) {
+        try {
+          console.log('[scan] Calling Hugging Face...');
+          result = await diagnoseWithHuggingFace(image);
+          if (result) { aiProvider = 'huggingface'; console.log('[scan] HF result:', result.disease); }
+        } catch (err) {
+          console.error('[scan] HF error:', err.message);
         }
       }
     } else {
