@@ -7,7 +7,8 @@ import GuildFeed   from './pages/GuildFeed';
 import CropSense   from './pages/CropSense';
 import ResourceHub from './pages/ResourceHub';
 import LoginScreen from './pages/LoginScreen';
-import Onboarding  from './components/Onboarding';
+import Onboarding          from './components/Onboarding';
+import NotificationBanner  from './components/NotificationBanner';
 
 const NAV = [
   { to: '/',           icon: <Users    size={21} />, label: 'Guild Feed'   },
@@ -89,6 +90,7 @@ function AppShell() {
         </div>
       </div>
       {showOnboarding && <Onboarding onDone={handleOnboardingDone} />}
+      <NotificationBanner />
     </BrowserRouter>
   );
 }

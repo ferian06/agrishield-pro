@@ -1,6 +1,7 @@
 const express = require('express');
 const { db, one, all } = require('../db/database');
 const { requireAuth } = require('../middleware/auth');
+const { sendPushToUser } = require('../utils/pushService');
 
 const router = express.Router();
 
@@ -128,6 +129,20 @@ router.post('/posts/:id/comments', requireAuth, async (req, res) => {
       `,
       args: [Number(result.lastInsertRowid)],
     }));
+
+    // Notify post author (skip if they're commenting on their own post)
+    const postOwner = one(await db.execute({
+      sql: 'SELECT user_id FROM posts WHERE id = ?',
+      args: [postId],
+    }));
+    if (postOwner && postOwner.user_id !== req.user.id) {
+      sendPushToUser(postOwner.user_id, {
+        title: 'New comment on your post',
+        body: `${req.user.name}: ${text.trim().slice(0, 100)}`,
+        url: '/',
+        tag: `comment-post-${postId}`,
+      }).catch(() => {});
+    }
 
     res.status(201).json({ comment });
   } catch (err) {

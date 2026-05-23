@@ -43,28 +43,36 @@ function PostCard({ post, onLike }) {
   const [sending, setSending]           = useState(false);
   const [localCount, setLocalCount]     = useState(post.comments);
 
+  const [commentError, setCommentError] = useState('');
+
   const openComments = async () => {
-    setShowComments(v => {
-      if (!v) {
-        setLoadingCmts(true);
-        communityService.getComments(post.id)
-          .then(({ comments: c }) => setComments(c || []))
-          .catch(() => {})
-          .finally(() => setLoadingCmts(false));
-      }
-      return !v;
-    });
+    if (showComments) { setShowComments(false); return; }
+    setShowComments(true);
+    setLoadingCmts(true);
+    try {
+      const { comments: c } = await communityService.getComments(post.id);
+      setComments(c || []);
+    } catch {
+      setComments([]);
+    } finally {
+      setLoadingCmts(false);
+    }
   };
 
   const submitComment = async () => {
     if (!commentText.trim() || sending) return;
     setSending(true);
+    setCommentError('');
     try {
       const { comment } = await communityService.addComment(post.id, commentText.trim());
       setComments(prev => [...prev, comment]);
       setLocalCount(c => c + 1);
       setCommentText('');
-    } catch {} finally { setSending(false); }
+    } catch {
+      setCommentError('Could not post comment. Try again.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -150,6 +158,9 @@ function PostCard({ post, onLike }) {
             </div>
           )}
           {/* Comment input */}
+          {commentError && (
+            <p className="text-[10px] text-red-500 text-center -mt-1">{commentError}</p>
+          )}
           <div className="flex gap-2 mt-2">
             <input
               value={commentText}

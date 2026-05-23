@@ -2,11 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const { initDb } = require('./db/database');
 
-const authRoutes      = require('./routes/auth');
-const communityRoutes = require('./routes/community');
-const scanRoutes      = require('./routes/scans');
-const weatherRoutes   = require('./routes/weather');
-const adminRoutes     = require('./routes/admin');
+const authRoutes          = require('./routes/auth');
+const communityRoutes     = require('./routes/community');
+const scanRoutes          = require('./routes/scans');
+const weatherRoutes       = require('./routes/weather');
+const adminRoutes         = require('./routes/admin');
+const notificationRoutes  = require('./routes/notifications');
 
 const app = express();
 
@@ -27,11 +28,12 @@ app.use(express.json({ limit: '10mb' }));
 
 app.get('/health', (_req, res) => res.json({ status: 'ok', service: 'GreenGuild API' }));
 
-app.use('/v1/auth',      authRoutes);
-app.use('/v1/community', communityRoutes);
-app.use('/v1/scans',     scanRoutes);
-app.use('/v1/weather',   weatherRoutes);
-app.use('/v1/admin',     adminRoutes);
+app.use('/v1/auth',          authRoutes);
+app.use('/v1/community',     communityRoutes);
+app.use('/v1/scans',         scanRoutes);
+app.use('/v1/weather',       weatherRoutes);
+app.use('/v1/admin',         adminRoutes);
+app.use('/v1/notifications', notificationRoutes);
 
 app.use((_req, res) => res.status(404).json({ message: 'Route not found.' }));
 app.use((err, _req, res, _next) => {
