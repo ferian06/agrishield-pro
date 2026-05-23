@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Heart, MessageCircle, BadgeCheck, Plus, X, Loader2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Heart, MessageCircle, BadgeCheck, Plus, X, Loader2, ImagePlus, Camera } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { communityService } from '../services/communityService';
 
@@ -29,7 +29,7 @@ function normalizePost(p) {
     likes: Number(p.likes),
     comments: Number(p.comment_count),
     liked: Boolean(p.liked_by_me),
-    image: null,
+    image: p.image_data || null,
   };
 }
 
@@ -99,33 +99,41 @@ function PostCard({ post, onLike }) {
 
 // ─── Share finding modal ──────────────────────────────────────────────────────
 function ShareModal({ onClose, onSubmit }) {
-  const [text, setText] = useState('');
-  const [tag, setTag]   = useState('Early Blight');
-  const [busy, setBusy] = useState(false);
+  const [text, setText]       = useState('');
+  const [tag, setTag]         = useState('Early Blight');
+  const [photo, setPhoto]     = useState(null); // base64 data URL
+  const [busy, setBusy]       = useState(false);
+  const galleryRef            = useRef(null);
+  const cameraRef             = useRef(null);
+
+  const handleFile = (file) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => setPhoto(e.target.result);
+    reader.readAsDataURL(file);
+  };
 
   const submit = async () => {
     if (!text.trim() || busy) return;
     setBusy(true);
-
-    const post = {
-      author:   'You',
-      initials: 'ME',
-      avatarBg: 'bg-forest-mid',
-      location: 'Your Farm',
-      time:     'Just now',
-      content:  text.trim(),
-      tag,
-      tagColor: tag === 'All Clear' ? 'green' : tag === 'Early Blight' ? 'red' : 'amber',
-      verified: false,
-      confidence: null,
-      image: null,
-    };
-
     try {
-      const { post: saved } = await communityService.createPost({ content: post.content, tag });
+      const { post: saved } = await communityService.createPost({
+        content: text.trim(),
+        tag,
+        imageData: photo || undefined,
+      });
       onSubmit(normalizePost(saved));
     } catch {
-      onSubmit(post);
+      onSubmit({
+        id: Date.now(),
+        author: 'You', initials: 'ME', avatarBg: 'bg-forest-mid',
+        location: 'Your Farm', time: 'Just now',
+        content: text.trim(), tag,
+        tagColor: tag === 'All Clear' ? 'green' : tag === 'Early Blight' ? 'red' : 'amber',
+        verified: false, confidence: null,
+        likes: 0, comments: 0, liked: false,
+        image: photo || null,
+      });
     }
     setBusy(false);
     onClose();
@@ -148,9 +156,46 @@ function ShareModal({ onClose, onSubmit }) {
           value={text}
           onChange={e => setText(e.target.value)}
           placeholder="Describe what you observed in your field…"
-          rows={4}
+          rows={3}
           className="w-full text-sm p-3 bg-slate-50 border border-slate-200 rounded-xl resize-none outline-none focus:border-forest-mid transition-colors"
         />
+
+        {/* Photo preview */}
+        {photo && (
+          <div className="relative mt-3">
+            <img src={photo} alt="Preview" className="w-full h-36 object-cover rounded-xl" />
+            <button
+              onClick={() => setPhoto(null)}
+              className="absolute top-2 right-2 bg-black/60 text-white w-7 h-7 rounded-full flex items-center justify-center"
+            >
+              <X size={13} />
+            </button>
+          </div>
+        )}
+
+        {/* Photo buttons */}
+        {!photo && (
+          <div className="flex gap-2 mt-3">
+            <button
+              onClick={() => galleryRef.current?.click()}
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 border border-slate-200 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+            >
+              <ImagePlus size={15} />
+              Add Photo
+            </button>
+            <button
+              onClick={() => cameraRef.current?.click()}
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 border border-slate-200 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+            >
+              <Camera size={15} />
+              Take Photo
+            </button>
+            <input ref={galleryRef} type="file" accept="image/*" className="hidden"
+              onChange={e => handleFile(e.target.files[0])} />
+            <input ref={cameraRef} type="file" accept="image/*" capture="environment" className="hidden"
+              onChange={e => handleFile(e.target.files[0])} />
+          </div>
+        )}
 
         <select
           value={tag}
@@ -159,7 +204,10 @@ function ShareModal({ onClose, onSubmit }) {
         >
           <option>Early Blight</option>
           <option>Common Rust</option>
+          <option>Late Blight</option>
+          <option>Leaf Spot</option>
           <option>Leaf Curl</option>
+          <option>Powdery Mildew</option>
           <option>All Clear</option>
           <option>Other</option>
         </select>
@@ -167,8 +215,9 @@ function ShareModal({ onClose, onSubmit }) {
         <button
           onClick={submit}
           disabled={!text.trim() || busy}
-          className="mt-4 w-full bg-forest-mid disabled:opacity-50 text-white font-bold py-3 rounded-xl text-sm transition-all active:scale-[0.97]"
+          className="mt-4 w-full bg-forest-mid disabled:opacity-50 text-white font-bold py-3 rounded-xl text-sm transition-all active:scale-[0.97] flex items-center justify-center gap-2"
         >
+          {busy ? <Loader2 size={16} className="animate-spin" /> : null}
           Post to Guild Feed
         </button>
       </div>
@@ -182,12 +231,9 @@ export default function GuildFeed() {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading]     = useState(true);
 
-  // Load real posts on mount; fall back to mock data if backend unreachable
   useEffect(() => {
     communityService.getPosts()
-      .then(({ posts }) => {
-        if (posts && posts.length > 0) setGuildPosts(posts.map(normalizePost));
-      })
+      .then(({ posts }) => setGuildPosts((posts || []).map(normalizePost)))
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
@@ -232,11 +278,19 @@ export default function GuildFeed() {
         </div>
 
         {/* Posts */}
-        <div className="space-y-3">
-          {guildPosts.map(post => (
-            <PostCard key={post.id} post={post} onLike={handleLike} />
-          ))}
-        </div>
+        {guildPosts.length === 0 ? (
+          <div className="text-center py-12 text-slate-400">
+            <p className="text-3xl mb-3">🌱</p>
+            <p className="font-bold text-sm text-slate-500">No findings yet</p>
+            <p className="text-xs mt-1">Be the first to share a field observation!</p>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {guildPosts.map(post => (
+              <PostCard key={post.id} post={post} onLike={handleLike} />
+            ))}
+          </div>
+        )}
 
         {/* Recent scans from this user */}
         {scanHistory.length > 0 && (

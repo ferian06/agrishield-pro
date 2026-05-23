@@ -14,7 +14,7 @@ router.get('/posts', requireAuth, async (req, res) => {
     const posts = all(await db.execute({
       sql: `
         SELECT
-          p.id, p.content, p.tag, p.scan_id, p.created_at,
+          p.id, p.content, p.tag, p.scan_id, p.image_data, p.created_at,
           u.id   AS author_id,
           u.name AS author_name,
           (SELECT COUNT(*) FROM post_likes WHERE post_id = p.id) AS likes,
@@ -49,7 +49,7 @@ router.post('/posts', requireAuth, async (req, res) => {
 
     const post = one(await db.execute({
       sql: `
-        SELECT p.id, p.content, p.tag, p.scan_id, p.created_at,
+        SELECT p.id, p.content, p.tag, p.scan_id, p.image_data, p.created_at,
                u.id AS author_id, u.name AS author_name,
                0 AS likes, 0 AS comment_count, 0 AS liked_by_me
         FROM posts p JOIN users u ON u.id = p.user_id
