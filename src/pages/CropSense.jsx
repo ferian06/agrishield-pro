@@ -236,13 +236,26 @@ function ScannerView({ onResult }) {
           <option value="other">Other plant</option>
         </select>
 
+        {/* Scan tips */}
+        {!isProcessing && cameraReady && (
+          <div className="mt-3 bg-slate-50 border border-slate-100 rounded-xl p-3">
+            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Tips for best results</p>
+            <div className="grid grid-cols-2 gap-y-1 gap-x-2 text-[10px] text-slate-500">
+              <span>📷 Fill frame with the leaf</span>
+              <span>💡 Use natural daylight</span>
+              <span>🔍 Focus on affected area</span>
+              <span>🚫 Avoid shadows & glare</span>
+            </div>
+          </div>
+        )}
+
         <button
           onClick={handleScan}
           disabled={isProcessing || !!cameraError || !cameraReady}
           className="mt-4 w-full bg-forest-mid hover:bg-forest-dark disabled:opacity-50 text-white font-bold p-4 rounded-xl flex items-center justify-center gap-2.5 transition-all active:scale-[0.97] shadow-md text-sm"
         >
           <ScanLine size={19} />
-          {isProcessing ? 'Analysing…' : 'Execute Edge Inference'}
+          {isProcessing ? 'Analysing…' : 'Scan Plant'}
         </button>
         {!cameraError && !cameraReady && (
           <p className="text-center text-[11px] text-slate-400 mt-2">Initialising camera…</p>
@@ -372,7 +385,12 @@ function ResultsView({ data, onNewScan }) {
         {/* Confidence bar */}
         <div className="mx-5 mb-5 bg-slate-50 p-4 rounded-2xl">
           <div className="flex justify-between text-xs font-bold text-slate-500 mb-2">
-            <span>Confidence Score</span>
+            <span>
+              {data.confidence >= 90 ? 'Very confident result' :
+               data.confidence >= 75 ? 'Confident result' :
+               data.confidence >= 60 ? 'Fairly confident — monitor closely' :
+               'Uncertain — verify with local expert'}
+            </span>
             <span className="text-slate-800">{data.confidence}%</span>
           </div>
           <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">

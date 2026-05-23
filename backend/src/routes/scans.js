@@ -86,7 +86,7 @@ function getRecommendations(disease, isHealthy) {
 }
 
 // ── Groq vision fallback ──────────────────────────────────────────────────────
-async function diagnoseWithGroq(imageBase64) {
+async function diagnoseWithGroq(imageBase64, cropType) {
   const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) return null;
 
@@ -96,14 +96,22 @@ async function diagnoseWithGroq(imageBase64) {
     ? imageBase64.split(',')[1]
     : imageBase64;
 
-  const prompt = `You are a plant disease detection system. Analyse the image and respond with ONLY a JSON object — no markdown, no explanation, nothing else.
+  const crop = cropType || 'plant';
 
-Rules:
-- If no plant is visible: {"disease":"No plant detected","confidence":0.99,"severity":"None","recommendations":["Point camera at a plant leaf","Move closer","Ensure good lighting","Tap scan again"]}
-- If plant is healthy: {"disease":"Healthy","confidence":0.93,"severity":"None","recommendations":["Plant looks healthy — continue regular care","Monitor weekly for changes","Maintain consistent watering","Check again in 7 days"]}
-- If plant is diseased: {"disease":"<exact disease name>","confidence":<0.70-0.97>,"severity":"Moderate" or "High","recommendations":["<specific treatment 1>","<specific treatment 2>","<specific treatment 3>","<specific treatment 4>"]}
+  const prompt = `You are an expert agricultural plant pathologist AI. The farmer is scanning a ${crop} plant.
 
-Respond with JSON only.`;
+Analyse the image and respond with ONLY a valid JSON object — no markdown, no text outside the JSON.
+
+CASE 1 — No plant or leaf visible in the image:
+{"disease":"No plant detected","scientificName":null,"confidence":0.99,"severity":"None","stage":null,"recommendations":["Point camera directly at a leaf","Move closer so the leaf fills the frame","Ensure good natural lighting","Try scanning again"]}
+
+CASE 2 — The ${crop} plant appears healthy:
+{"disease":"Healthy","scientificName":null,"confidence":0.93,"severity":"None","stage":null,"recommendations":["${crop} looks healthy — maintain current care routine","Scout every 3-5 days for early warning signs","Ensure proper watering and soil drainage","Good plant spacing helps prevent fungal spread"]}
+
+CASE 3 — The ${crop} plant shows disease or stress symptoms:
+{"disease":"<common disease name specific to ${crop}>","scientificName":"<pathogen scientific name>","confidence":<0.65-0.97>,"severity":"Moderate" or "High","stage":"Early" or "Advanced","recommendations":["<immediate action e.g. Remove and destroy infected leaves>","<chemical treatment: product name and dosage>","<organic or preventive alternative>","<monitoring and follow-up advice>"]}
+
+Focus on diseases common in ${crop} crops. Return ONLY the JSON object.`;
 
   const body = {
     model: 'meta-llama/llama-4-scout-17b-16e-instruct',
@@ -114,7 +122,7 @@ Respond with JSON only.`;
         { type: 'text', text: prompt },
       ],
     }],
-    max_tokens: 512,
+    max_tokens: 800,
     temperature: 0.1,
   };
 
@@ -137,7 +145,7 @@ Respond with JSON only.`;
 }
 
 // ── Gemini fallback ───────────────────────────────────────────────────────────
-async function diagnoseWithGemini(imageBase64) {
+async function diagnoseWithGemini(imageBase64, cropType) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return null;
 
@@ -147,22 +155,26 @@ async function diagnoseWithGemini(imageBase64) {
     ? imageBase64.split(',')[1]
     : imageBase64;
 
-  const prompt = `You are a strict plant disease detection system. First check: does this image show a plant leaf or crop?
+  const crop = cropType || 'plant';
 
-If NO plant visible, return exactly:
-{"disease":"No plant detected — point camera at a leaf","confidence":0.99,"severity":"None","recommendations":["Point camera at a plant leaf","Move closer so the leaf fills the frame","Ensure good lighting","Tap scan again"]}
+  const prompt = `You are an expert agricultural plant pathologist AI. The farmer is scanning a ${crop} plant.
 
-If plant IS healthy, return:
-{"disease":"Healthy","confidence":0.92,"severity":"None","recommendations":["Plant looks healthy","Continue regular monitoring","Check again in 7 days","Watch for early discolouration"]}
+Analyse the image and respond with ONLY a valid JSON object — no markdown, no text outside the JSON.
 
-If plant IS diseased:
-{"disease":"exact disease name","confidence":0.85,"severity":"Moderate or High","recommendations":["treatment 1","treatment 2","treatment 3","treatment 4"]}
+CASE 1 — No plant or leaf visible:
+{"disease":"No plant detected","scientificName":null,"confidence":0.99,"severity":"None","stage":null,"recommendations":["Point camera directly at a leaf","Move closer so the leaf fills the frame","Ensure good natural lighting","Try scanning again"]}
 
-Return ONLY raw JSON, no markdown.`;
+CASE 2 — The ${crop} plant appears healthy:
+{"disease":"Healthy","scientificName":null,"confidence":0.93,"severity":"None","stage":null,"recommendations":["${crop} looks healthy — maintain current care routine","Scout every 3-5 days for early warning signs","Ensure proper watering and soil drainage","Good plant spacing helps prevent fungal spread"]}
+
+CASE 3 — The ${crop} plant shows disease or stress symptoms:
+{"disease":"<common disease name specific to ${crop}>","scientificName":"<pathogen scientific name>","confidence":<0.65-0.97>,"severity":"Moderate" or "High","stage":"Early" or "Advanced","recommendations":["<immediate action>","<chemical treatment with product and dosage>","<organic or preventive alternative>","<monitoring and follow-up advice>"]}
+
+Focus on diseases common in ${crop} crops. Return ONLY the JSON object.`;
 
   const body = {
     contents: [{ parts: [{ inline_data: { mime_type: 'image/jpeg', data: base64Data } }, { text: prompt }] }],
-    generationConfig: { temperature: 0.1, maxOutputTokens: 512 },
+    generationConfig: { temperature: 0.1, maxOutputTokens: 800 },
   };
 
   const res = await fetch(
@@ -213,7 +225,7 @@ router.post('/', requireAuth, async (req, res) => {
       if (process.env.GROQ_API_KEY) {
         try {
           console.log('[scan] Calling Groq...');
-          result = await diagnoseWithGroq(image);
+          result = await diagnoseWithGroq(image, cropType);
           if (result) { aiProvider = 'groq'; console.log('[scan] Groq result:', result.disease); }
         } catch (err) {
           console.error('[scan] Groq error:', err.message);
@@ -224,7 +236,7 @@ router.post('/', requireAuth, async (req, res) => {
       if (!result && process.env.GEMINI_API_KEY) {
         try {
           console.log('[scan] Calling Gemini...');
-          result = await diagnoseWithGemini(image);
+          result = await diagnoseWithGemini(image, cropType);
           if (result) { aiProvider = 'gemini'; console.log('[scan] Gemini result:', result.disease); }
         } catch (err) {
           console.error('[scan] Gemini error:', err.message);

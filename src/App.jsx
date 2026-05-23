@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import { Users, ScanLine, BookOpen, LogOut } from 'lucide-react';
 import { AppProvider, useAppContext } from './context/AppContext';
@@ -7,6 +7,7 @@ import GuildFeed   from './pages/GuildFeed';
 import CropSense   from './pages/CropSense';
 import ResourceHub from './pages/ResourceHub';
 import LoginScreen from './pages/LoginScreen';
+import Onboarding  from './components/Onboarding';
 
 const NAV = [
   { to: '/',           icon: <Users    size={21} />, label: 'Guild Feed'   },
@@ -16,8 +17,17 @@ const NAV = [
 
 function AppShell() {
   const { user, login, logout } = useAppContext();
+  const [showOnboarding, setShowOnboarding] = useState(
+    () => !localStorage.getItem('gg_onboarded')
+  );
+
+  const handleOnboardingDone = () => {
+    localStorage.setItem('gg_onboarded', '1');
+    setShowOnboarding(false);
+  };
 
   if (!user) return <LoginScreen onAuth={login} />;
+
 
   return (
     <BrowserRouter>
@@ -78,6 +88,7 @@ function AppShell() {
 
         </div>
       </div>
+      {showOnboarding && <Onboarding onDone={handleOnboardingDone} />}
     </BrowserRouter>
   );
 }
