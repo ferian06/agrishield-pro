@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Heart, MessageCircle, BadgeCheck, Plus, X, Loader2, ImagePlus, Camera } from 'lucide-react';
+import { Heart, MessageCircle, BadgeCheck, Plus, X, Loader2, ImagePlus, Camera, Send } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { communityService } from '../services/communityService';
 
@@ -36,6 +36,36 @@ function normalizePost(p) {
 // ─── Post card ────────────────────────────────────────────────────────────────
 function PostCard({ post, onLike }) {
   const tagStyle = TAG_STYLES[post.tagColor] || TAG_STYLES.green;
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments]         = useState([]);
+  const [loadingCmts, setLoadingCmts]   = useState(false);
+  const [commentText, setCommentText]   = useState('');
+  const [sending, setSending]           = useState(false);
+  const [localCount, setLocalCount]     = useState(post.comments);
+
+  const openComments = async () => {
+    setShowComments(v => {
+      if (!v) {
+        setLoadingCmts(true);
+        communityService.getComments(post.id)
+          .then(({ comments: c }) => setComments(c || []))
+          .catch(() => {})
+          .finally(() => setLoadingCmts(false));
+      }
+      return !v;
+    });
+  };
+
+  const submitComment = async () => {
+    if (!commentText.trim() || sending) return;
+    setSending(true);
+    try {
+      const { comment } = await communityService.addComment(post.id, commentText.trim());
+      setComments(prev => [...prev, comment]);
+      setLocalCount(c => c + 1);
+      setCommentText('');
+    } catch {} finally { setSending(false); }
+  };
 
   return (
     <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
@@ -60,10 +90,7 @@ function PostCard({ post, onLike }) {
 
       {/* Image */}
       {post.image && (
-        <div
-          className="w-full h-44 bg-cover bg-center mx-0"
-          style={{ backgroundImage: `url(${post.image})` }}
-        />
+        <img src={post.image} alt="Finding" className="w-full h-44 object-cover" />
       )}
 
       {/* AI verified badge + engagement */}
@@ -76,7 +103,6 @@ function PostCard({ post, onLike }) {
         ) : (
           <span className="text-[10px] text-slate-300">Unverified finding</span>
         )}
-
         <div className="flex items-center gap-4">
           <button
             onClick={() => onLike(post.id)}
@@ -87,12 +113,61 @@ function PostCard({ post, onLike }) {
             <Heart size={15} fill={post.liked ? 'currentColor' : 'none'} />
             {post.likes}
           </button>
-          <span className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
+          <button
+            onClick={openComments}
+            className={`flex items-center gap-1.5 text-xs font-bold transition-colors ${
+              showComments ? 'text-forest-mid' : 'text-slate-400 hover:text-forest-mid'
+            }`}
+          >
             <MessageCircle size={15} />
-            {post.comments}
-          </span>
+            {localCount}
+          </button>
         </div>
       </div>
+
+      {/* Comments section */}
+      {showComments && (
+        <div className="border-t border-slate-50 px-4 pb-4 pt-3 space-y-3">
+          {loadingCmts ? (
+            <div className="flex justify-center py-2">
+              <Loader2 size={16} className="animate-spin text-slate-400" />
+            </div>
+          ) : comments.length === 0 ? (
+            <p className="text-xs text-slate-400 text-center py-1">No comments yet — be the first!</p>
+          ) : (
+            <div className="space-y-2">
+              {comments.map(c => (
+                <div key={c.id} className="flex gap-2">
+                  <div className="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center text-[10px] font-bold text-slate-600 flex-shrink-0">
+                    {(c.author_name || 'U').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}
+                  </div>
+                  <div className="bg-slate-50 rounded-xl px-3 py-2 flex-1">
+                    <p className="text-[10px] font-bold text-slate-600">{c.author_name}</p>
+                    <p className="text-xs text-slate-700 mt-0.5">{c.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          {/* Comment input */}
+          <div className="flex gap-2 mt-2">
+            <input
+              value={commentText}
+              onChange={e => setCommentText(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && submitComment()}
+              placeholder="Add a comment…"
+              className="flex-1 text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-forest-mid transition-colors"
+            />
+            <button
+              onClick={submitComment}
+              disabled={!commentText.trim() || sending}
+              className="w-9 h-9 bg-forest-mid disabled:opacity-40 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              {sending ? <Loader2 size={14} className="animate-spin text-white" /> : <Send size={14} className="text-white" />}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

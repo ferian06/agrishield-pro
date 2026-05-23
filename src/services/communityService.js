@@ -26,6 +26,12 @@ export const communityService = {
     api.post(`/community/posts/${postId}/like`),
 
   /**
+   * Get comments for a post.
+   */
+  getComments: (postId) =>
+    api.get(`/community/posts/${postId}/comments`),
+
+  /**
    * Add a comment to a post.
    */
   addComment: (postId, text) =>

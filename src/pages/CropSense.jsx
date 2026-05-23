@@ -2,11 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import {
   ScanLine, Loader2, Database, CameraOff, FlipHorizontal2,
   AlertCircle, CheckCircle2, PlayCircle, StopCircle,
-  FlaskConical, ClipboardCheck, RefreshCw,
+  FlaskConical, ClipboardCheck, RefreshCw, Share2, X,
 } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import FeedbackBar from '../components/FeedbackBar';
 import { cropService } from '../services/cropService';
+import { communityService } from '../services/communityService';
 
 // ─── mock AI results (used until a real backend is connected) ─────────────────
 const MOCK_RESULTS = {
@@ -251,10 +252,84 @@ function ScannerView({ onResult }) {
   );
 }
 
+// ─── Share to feed modal ──────────────────────────────────────────────────────
+function ScanShareModal({ data, onClose }) {
+  const diseaseTag =
+    data.disease?.toLowerCase().includes('healthy') ? 'All Clear' :
+    data.disease?.toLowerCase().includes('blight')  ? 'Early Blight' :
+    data.disease?.toLowerCase().includes('rust')    ? 'Common Rust' :
+    data.disease?.toLowerCase().includes('curl')    ? 'Leaf Curl' : 'Other';
+
+  const [text, setText] = useState(
+    `Detected ${data.disease} on my ${data.crop} with ${data.confidence}% confidence. ${
+      data.severity === 'danger' || data.severity === 'warning'
+        ? 'Applying treatment now.'
+        : 'Crop looks healthy!'
+    }`
+  );
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(false);
+
+  const submit = async () => {
+    if (!text.trim() || busy) return;
+    setBusy(true);
+    try {
+      await communityService.createPost({
+        content: text.trim(),
+        tag: diseaseTag,
+        imageData: data.bg || undefined,
+      });
+      setDone(true);
+      setTimeout(onClose, 1200);
+    } catch {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end" onClick={onClose}>
+      <div className="bg-white w-full max-w-md mx-auto rounded-t-[28px] p-6 shadow-2xl" onClick={e => e.stopPropagation()}>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="font-syne font-extrabold text-lg text-slate-800">Share to Guild Feed</h3>
+          <button onClick={onClose} className="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center">
+            <X size={16} className="text-slate-500" />
+          </button>
+        </div>
+        {data.bg && (
+          <img src={data.bg} alt="Scan" className="w-full h-32 object-cover rounded-xl mb-3" />
+        )}
+        <textarea
+          value={text}
+          onChange={e => setText(e.target.value)}
+          rows={3}
+          className="w-full text-sm p-3 bg-slate-50 border border-slate-200 rounded-xl resize-none outline-none focus:border-forest-mid transition-colors"
+        />
+        <div className="flex items-center gap-2 mt-2 mb-4">
+          <span className={`text-[10px] font-bold border rounded-full px-2.5 py-1 ${
+            diseaseTag === 'All Clear' ? 'bg-green-50 text-green-600 border-green-200' :
+            diseaseTag === 'Early Blight' ? 'bg-red-50 text-red-600 border-red-200' :
+            'bg-amber-50 text-amber-600 border-amber-200'
+          }`}>{diseaseTag}</span>
+          <span className="text-[10px] text-slate-400">Auto-tagged from scan</span>
+        </div>
+        <button
+          onClick={submit}
+          disabled={!text.trim() || busy || done}
+          className="w-full bg-forest-mid disabled:opacity-50 text-white font-bold py-3 rounded-xl text-sm flex items-center justify-center gap-2"
+        >
+          {done ? '✓ Posted!' : busy ? <Loader2 size={16} className="animate-spin" /> : null}
+          {done ? '' : 'Post to Guild Feed'}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ─── Results view ─────────────────────────────────────────────────────────────
 function ResultsView({ data, onNewScan }) {
   const { markTreatment, getTreatment } = useAppContext();
   const [isSpeaking, setIsSpeaking]     = useState(false);
+  const [showShare, setShowShare]       = useState(false);
 
   const isDanger = data.severity === 'danger' || data.severity === 'warning';
   const treatment = getTreatment(data.id);
@@ -361,6 +436,15 @@ function ResultsView({ data, onNewScan }) {
           : <><PlayCircle  size={19} className="text-brand-mint" />Initialize Voice Guidance</>}
       </button>
 
+      {/* Share to feed */}
+      <button
+        onClick={() => setShowShare(true)}
+        className="w-full bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 p-4 rounded-2xl flex items-center justify-center gap-2.5 font-bold text-sm transition-colors"
+      >
+        <Share2 size={17} />
+        Share to Guild Feed
+      </button>
+
       {/* New scan */}
       <button
         onClick={onNewScan}
@@ -369,6 +453,8 @@ function ResultsView({ data, onNewScan }) {
         <RefreshCw size={17} />
         New Scan
       </button>
+
+      {showShare && <ScanShareModal data={data} onClose={() => setShowShare(false)} />}
     </div>
   );
 }

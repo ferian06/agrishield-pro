@@ -1,45 +1,23 @@
-import React, { createContext, useState, useContext, useCallback } from 'react';
+import React, { createContext, useState, useContext, useCallback, useEffect, useMemo } from 'react';
+import { cropService } from '../services/cropService';
 
 const AppContext = createContext();
 
-// ─── seed data ────────────────────────────────────────────────────────────────
-
-const INITIAL_SCANS = [
-  {
-    id: 1,
-    crop: 'Tomato Plot B',
-    disease: 'Early Blight (Alternaria solani)',
-    confidence: 94.2,
-    severity: 'danger',
-    date: '10 mins ago',
-    bg: 'https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?auto=format&fit=crop&q=80&w=400',
-  },
-  {
-    id: 2,
-    crop: 'Rice Field Terrace',
-    disease: 'Healthy Blade',
-    confidence: 98.1,
-    severity: 'success',
-    date: '2 hrs ago',
-    bg: 'https://images.unsplash.com/photo-1536657464919-892534f60d6e?auto=format&fit=crop&q=80&w=400',
-  },
-];
-
-const INITIAL_POSTS = [];
-
-const INITIAL_PLOTS = [
-  { id: 'A', name: 'Tomato Plot A', sector: 'Sector 1', status: 'healthy', lastScan: '1 day ago',  crop: 'Tomato',  health: 96 },
-  { id: 'B', name: 'Tomato Plot B', sector: 'Sector 2', status: 'danger',  lastScan: '10 mins ago', crop: 'Tomato',  health: 23 },
-  { id: 'C', name: 'Corn Sector 2', sector: 'Sector 3', status: 'warning', lastScan: '3 hrs ago',  crop: 'Corn',    health: 61 },
-  { id: 'D', name: 'Rice Terrace',  sector: 'Sector 4', status: 'healthy', lastScan: '2 hrs ago',  crop: 'Rice',    health: 88 },
-  { id: 'E', name: 'Wheat Field',   sector: 'Sector 5', status: 'healthy', lastScan: '1 day ago',  crop: 'Wheat',   health: 91 },
-  { id: 'F', name: 'Pepper Row',    sector: 'Sector 6', status: 'warning', lastScan: '5 hrs ago',  crop: 'Pepper',  health: 54 },
-];
-
-// ─── provider ─────────────────────────────────────────────────────────────────
+function normalizeScan(s) {
+  const cropName = (s.crop_type || 'plant');
+  return {
+    id: s.id,
+    crop: cropName.charAt(0).toUpperCase() + cropName.slice(1) + ' Plant',
+    disease: s.disease || 'Unknown',
+    confidence: Math.round((s.confidence || 0) * 1000) / 10,
+    severity: s.severity === 'High' ? 'danger' : s.severity === 'Moderate' ? 'warning' : 'success',
+    date: new Date(s.created_at).toLocaleDateString(),
+    bg: null,
+    recommendations: s.recommendations || [],
+  };
+}
 
 export const AppProvider = ({ children }) => {
-  // ── auth ───────────────────────────────────────────────────────────────────
   const [user, setUser] = useState(() => {
     try {
       const stored = localStorage.getItem('gg_user');
@@ -59,20 +37,43 @@ export const AppProvider = ({ children }) => {
     setUser(null);
   }, []);
 
-  const [scanHistory, setScanHistory]   = useState(INITIAL_SCANS);
+  const [scanHistory, setScanHistory]         = useState([]);
   const [activeDiagnosis, setActiveDiagnosis] = useState(null);
-  const [treatmentLog, setTreatmentLog] = useState([]);
-  const [fieldPlots]                    = useState(INITIAL_PLOTS);
-  const [guildPosts, setGuildPosts]     = useState(INITIAL_POSTS);
-  const [feedbackLog, setFeedbackLog]   = useState([]);   // { scanId, rating, time }
+  const [treatmentLog, setTreatmentLog]       = useState([]);
+  const [guildPosts, setGuildPosts]           = useState([]);
+  const [feedbackLog, setFeedbackLog]         = useState([]);
 
-  // ── scan actions ───────────────────────────────────────────────────────────
+  // Load real scan history from backend whenever user logs in
+  useEffect(() => {
+    if (!user) { setScanHistory([]); return; }
+    cropService.getScanHistory()
+      .then(({ scans }) => setScanHistory((scans || []).map(normalizeScan)))
+      .catch(() => {});
+  }, [user]);
+
+  // Derive field plots from real scan history (most recent scan per crop type)
+  const fieldPlots = useMemo(() => {
+    const byType = {};
+    scanHistory.forEach(s => {
+      const key = s.crop.replace(' Plant', '').toLowerCase();
+      if (!byType[key]) byType[key] = s;
+    });
+    return Object.values(byType).map((s, i) => ({
+      id: String.fromCharCode(65 + i),
+      name: s.crop,
+      sector: `Field ${i + 1}`,
+      status: s.severity === 'danger' ? 'danger' : s.severity === 'warning' ? 'warning' : 'healthy',
+      lastScan: s.date,
+      crop: s.crop.replace(' Plant', ''),
+      health: s.severity === 'danger' ? 22 : s.severity === 'warning' ? 58 : 91,
+    }));
+  }, [scanHistory]);
+
   const addScan = (scan) => {
     setScanHistory(prev => [scan, ...prev]);
     setActiveDiagnosis(scan);
   };
 
-  // ── treatment actions ──────────────────────────────────────────────────────
   const markTreatment = (scanId) => {
     setTreatmentLog(prev => {
       if (prev.find(t => t.scanId === scanId)) return prev;
@@ -82,7 +83,6 @@ export const AppProvider = ({ children }) => {
   };
   const getTreatment = (scanId) => treatmentLog.find(t => t.scanId === scanId);
 
-  // ── feedback actions ───────────────────────────────────────────────────────
   const submitFeedback = (scanId, rating) => {
     setFeedbackLog(prev => {
       if (prev.find(f => f.scanId === scanId)) return prev;
@@ -92,7 +92,6 @@ export const AppProvider = ({ children }) => {
   };
   const getFeedback = (scanId) => feedbackLog.find(f => f.scanId === scanId);
 
-  // ── guild feed actions ─────────────────────────────────────────────────────
   const toggleLike = (postId) => {
     setGuildPosts(prev => prev.map(p =>
       p.id === postId
@@ -107,17 +106,11 @@ export const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={{
-      // auth
       user, login, logout,
-      // scans
-      scanHistory, activeDiagnosis, addScan,
-      // treatments
+      scanHistory, setScanHistory, activeDiagnosis, addScan,
       treatmentLog, markTreatment, getTreatment,
-      // feedback
       feedbackLog, submitFeedback, getFeedback,
-      // plots
       fieldPlots,
-      // guild
       guildPosts, setGuildPosts, toggleLike, addPost,
     }}>
       {children}

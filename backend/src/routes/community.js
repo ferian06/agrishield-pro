@@ -89,6 +89,22 @@ router.post('/posts/:id/like', requireAuth, async (req, res) => {
   }
 });
 
+// GET /v1/community/posts/:id/comments
+router.get('/posts/:id/comments', requireAuth, async (req, res) => {
+  try {
+    const postId = parseInt(req.params.id);
+    const comments = all(await db.execute({
+      sql: `SELECT c.id, c.text, c.created_at, u.id AS author_id, u.name AS author_name
+            FROM comments c JOIN users u ON u.id = c.user_id
+            WHERE c.post_id = ? ORDER BY c.created_at ASC`,
+      args: [postId],
+    }));
+    res.json({ comments });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // POST /v1/community/posts/:id/comments
 router.post('/posts/:id/comments', requireAuth, async (req, res) => {
   try {
