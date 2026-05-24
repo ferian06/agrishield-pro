@@ -1,0 +1,30 @@
+{
+  "nav": { "feed": "Mkondo wa Jamii", "cropsense": "CropSense", "resources": "Kituo Rasilimali", "profile": "Wasifu" },
+  "common": { "loading": "Inapakia…", "error": "Hitilafu fulani imetokea", "retry": "Jaribu Tena", "signOut": "Ondoka", "share": "Shiriki", "online": "Mtandaoni", "save": "Hifadhi", "cancel": "Ghairi" },
+  "feed": {
+    "title": "Mkondo wa Jamii", "subtitle": "Matokeo na arifa za jamii",
+    "mission": "Jukwaa linaloendeshwa na jamii na AI kuwasaidia wakulima wadogo kupitia uchunguzi wa nje ya mtandao.",
+    "noFindings": "Hakuna matokeo bado", "noFindingsHint": "Kuwa wa kwanza kushiriki uchunguzi wako!",
+    "filter": { "all": "Yote", "earlyBlight": "Ukungu wa Mapema", "lateBlight": "Ukungu wa Marehemu", "commonRust": "Kutu ya Kawaida", "leafCurl": "Kujikunja kwa Majani", "powderyMildew": "Ukungu wa Unga", "allClear": "Salama", "other": "Nyingine" },
+    "comments": { "placeholder": "Ongeza maoni…", "noComments": "Hakuna maoni bado — kuwa wa kwanza!", "error": "Imeshindwa kutuma maoni. Jaribu tena." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Uchunguzi wa mazao unaotumia AI",
+    "scan": "Changanua Mmea", "scanning": "Inachunguza…", "newScan": "Uchunguzi Mpya",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Hali ya Maonyesho" },
+    "treatment": { "applied": "Matibabu Yametumika", "markApplied": "Weka Alama ya Matibabu", "loggedAt": "Imerekodiwa leo saa" },
+    "voice": { "start": "Anzisha Mwongozo wa Sauti", "stop": "Simamisha Mwongozo wa Sauti" }
+  },
+  "resources": {
+    "title": "Kituo Rasilimali", "subtitle": "Hali ya hewa, afya ya mazao & itifaki za matibabu",
+    "tabs": { "weather": "Hali ya Hewa", "crops": "Mazao Yangu", "treatments": "Matibabu" }
+  },
+  "profile": {
+    "title": "Wasifu", "memberSince": "Mwanachama tangu",
+    "stats": { "scans": "Uchunguzi", "posts": "Machapisho" },
+    "notifications": { "title": "Arifa", "subtitle": "Arifa za maoni na hali ya hewa", "enabled": "Imewezeshwa", "enable": "Wezesha", "notSupported": "Haihamiliwi kwenye kivinjari hiki" },
+    "language": { "title": "Lugha", "en": "English", "fr": "Français", "sw": "Kiswahili" },
+    "signOut": "Ondoka", "version": "Toleo"
+  },
+  "notifBanner": { "title": "Kaa katika mkondo", "subtitle": "Pata arifa wakati mtu anapojibu chapisho lako au kunapokuwa na onyo la hali ya hewa.", "allow": "Ruhusu arifa", "notNow": "Si sasa", "enabling": "Inawezeshwa…" }
+}

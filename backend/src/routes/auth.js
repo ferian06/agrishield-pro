@@ -67,4 +67,22 @@ router.get('/me', requireAuth, async (req, res) => {
   }
 });
 
+// GET /v1/auth/stats — scan count, post count, member since
+router.get('/stats', requireAuth, async (req, res) => {
+  try {
+    const [scansRow, postsRow, userRow] = await Promise.all([
+      db.execute({ sql: 'SELECT COUNT(*) AS n FROM scans WHERE user_id = ?',  args: [req.user.id] }),
+      db.execute({ sql: 'SELECT COUNT(*) AS n FROM posts WHERE user_id = ?',  args: [req.user.id] }),
+      db.execute({ sql: 'SELECT created_at FROM users WHERE id = ?',           args: [req.user.id] }),
+    ]);
+    res.json({
+      scanCount:   one(scansRow)?.n  || 0,
+      postCount:   one(postsRow)?.n  || 0,
+      memberSince: one(userRow)?.created_at || null,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;

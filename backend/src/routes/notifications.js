@@ -16,10 +16,11 @@ router.post('/subscribe', requireAuth, async (req, res) => {
       return res.status(400).json({ message: 'Invalid subscription object.' });
     }
 
+    const { lat, lng } = req.body;
     await db.execute({
-      sql: `INSERT OR REPLACE INTO push_subscriptions (user_id, endpoint, p256dh, auth)
-            VALUES (?, ?, ?, ?)`,
-      args: [req.user.id, subscription.endpoint, subscription.keys.p256dh, subscription.keys.auth],
+      sql: `INSERT OR REPLACE INTO push_subscriptions (user_id, endpoint, p256dh, auth, lat, lng)
+            VALUES (?, ?, ?, ?, ?, ?)`,
+      args: [req.user.id, subscription.endpoint, subscription.keys.p256dh, subscription.keys.auth, lat || null, lng || null],
     });
 
     res.json({ success: true });

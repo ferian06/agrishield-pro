@@ -107,9 +107,10 @@ function ScannerView({ onResult }) {
         id: result.scanId || Date.now(),
         crop: selectedModel.charAt(0).toUpperCase() + selectedModel.slice(1) + ' Plant',
         disease: result.disease,
-        confidence: Math.round((result.confidence || 0) * 1000) / 10, // 0.87 → 87.0
+        confidence: Math.round((result.confidence || 0) * 1000) / 10,
         severity: result.severity === 'High' ? 'danger' : result.severity === 'Moderate' ? 'warning' : 'success',
         recommendations: result.recommendations,
+        aiProvider: result.aiProvider || 'stub',
         bg: snapshot || '',
         date: 'Just now',
       });
@@ -382,6 +383,19 @@ function ResultsView({ data, onNewScan }) {
           <h2 className="text-base font-extrabold text-slate-800 font-syne leading-snug mb-1">{data.disease}</h2>
           <p className="text-xs text-slate-400">{data.crop} · {data.date}</p>
         </div>
+        {/* AI Provider badge */}
+        <div className="mx-5 mb-2 flex justify-center">
+          {data.aiProvider === 'stub' ? (
+            <span className="text-[10px] font-bold bg-amber-50 border border-amber-200 text-amber-600 px-3 py-1 rounded-full">
+              ⚠ Demo Mode — AI unavailable, result is simulated
+            </span>
+          ) : (
+            <span className="text-[10px] font-bold bg-green-50 border border-green-200 text-green-700 px-3 py-1 rounded-full">
+              ✓ Live AI · {data.aiProvider === 'groq' ? 'Groq' : data.aiProvider === 'gemini' ? 'Gemini' : 'HuggingFace'}
+            </span>
+          )}
+        </div>
+
         {/* Confidence bar */}
         <div className="mx-5 mb-5 bg-slate-50 p-4 rounded-2xl">
           <div className="flex justify-between text-xs font-bold text-slate-500 mb-2">

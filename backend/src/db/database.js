@@ -66,6 +66,13 @@ const SCHEMA = `
     auth       TEXT    NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
+  CREATE TABLE IF NOT EXISTS treatment_logs (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    scan_id    INTEGER NOT NULL,
+    user_id    INTEGER NOT NULL,
+    note       TEXT,
+    applied_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
 `;
 
 async function initDb() {
@@ -76,6 +83,16 @@ async function initDb() {
     .filter(s => s.length > 0)
     .map(s => ({ sql: s, args: [] }));
   await db.batch(statements, 'write');
+
+  // Migrations: add new columns to existing tables (silently ignored if already exist)
+  const migrations = [
+    'ALTER TABLE push_subscriptions ADD COLUMN lat  REAL',
+    'ALTER TABLE push_subscriptions ADD COLUMN lng  REAL',
+    "ALTER TABLE scans ADD COLUMN ai_provider TEXT DEFAULT 'stub'",
+  ];
+  for (const sql of migrations) {
+    try { await db.execute({ sql, args: [] }); } catch { /* column already exists */ }
+  }
 }
 
 // Helper: first row or null

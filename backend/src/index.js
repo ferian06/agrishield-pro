@@ -8,6 +8,8 @@ const scanRoutes          = require('./routes/scans');
 const weatherRoutes       = require('./routes/weather');
 const adminRoutes         = require('./routes/admin');
 const notificationRoutes  = require('./routes/notifications');
+const treatmentRoutes     = require('./routes/treatments');
+const { initWeatherCron } = require('./cron/weatherAlerts');
 
 const app = express();
 
@@ -34,6 +36,7 @@ app.use('/v1/scans',         scanRoutes);
 app.use('/v1/weather',       weatherRoutes);
 app.use('/v1/admin',         adminRoutes);
 app.use('/v1/notifications', notificationRoutes);
+app.use('/v1/treatments',    treatmentRoutes);
 
 app.use((_req, res) => res.status(404).json({ message: 'Route not found.' }));
 app.use((err, _req, res, _next) => {
@@ -44,5 +47,8 @@ app.use((err, _req, res, _next) => {
 const PORT = process.env.PORT || 3001;
 
 initDb()
-  .then(() => app.listen(PORT, () => console.log(`GreenGuild API running on port ${PORT}`)))
+  .then(() => {
+    app.listen(PORT, () => console.log(`GreenGuild API running on port ${PORT}`));
+    initWeatherCron();
+  })
   .catch(err => { console.error('DB init failed:', err); process.exit(1); });

@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
-import { Users, ScanLine, BookOpen, LogOut } from 'lucide-react';
+import { Users, ScanLine, BookOpen, UserCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { AppProvider, useAppContext } from './context/AppContext';
 
 import GuildFeed   from './pages/GuildFeed';
 import CropSense   from './pages/CropSense';
 import ResourceHub from './pages/ResourceHub';
+import Profile     from './pages/Profile';
 import LoginScreen from './pages/LoginScreen';
 import Onboarding          from './components/Onboarding';
 import NotificationBanner  from './components/NotificationBanner';
 
-const NAV = [
-  { to: '/',           icon: <Users    size={21} />, label: 'Guild Feed'   },
-  { to: '/cropsense',  icon: <ScanLine size={21} />, label: 'CropSense'   },
-  { to: '/resources',  icon: <BookOpen size={21} />, label: 'Resource Hub' },
-];
-
 function AppShell() {
+  const { t } = useTranslation();
   const { user, login, logout } = useAppContext();
+
+  const NAV = [
+    { to: '/',          icon: <Users      size={21} />, label: t('nav.feed')      },
+    { to: '/cropsense', icon: <ScanLine   size={21} />, label: t('nav.cropsense') },
+    { to: '/resources', icon: <BookOpen   size={21} />, label: t('nav.resources') },
+    { to: '/profile',   icon: <UserCircle size={21} />, label: t('nav.profile')   },
+  ];
   const [showOnboarding, setShowOnboarding] = useState(
     () => !localStorage.getItem('gg_onboarded')
   );
@@ -43,18 +47,9 @@ function AppShell() {
                 </span>
                 <h1 className="font-syne font-extrabold text-[22px] leading-tight">GreenGuild AI</h1>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-semibold bg-brand-mint/30 border border-brand-mint/50 text-green-200 px-3 py-1 rounded-full">
-                  ● Online
-                </span>
-                <button
-                  onClick={logout}
-                  title={`Sign out (${user.name})`}
-                  className="w-8 h-8 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
-                >
-                  <LogOut size={14} className="text-white/70" />
-                </button>
-              </div>
+              <span className="text-[10px] font-semibold bg-brand-mint/30 border border-brand-mint/50 text-green-200 px-3 py-1 rounded-full">
+                ● {t('common.online')}
+              </span>
             </div>
           </header>
 
@@ -63,6 +58,7 @@ function AppShell() {
               <Route path="/"           element={<GuildFeed />}   />
               <Route path="/cropsense"  element={<CropSense />}   />
               <Route path="/resources"  element={<ResourceHub />} />
+              <Route path="/profile"    element={<Profile />}     />
               <Route path="*"           element={<GuildFeed />}   />
             </Routes>
           </main>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Bell, X } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { notificationService } from '../services/notificationService'
 
 export default function NotificationBanner() {
+  const { t } = useTranslation()
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -42,20 +44,18 @@ export default function NotificationBanner() {
           <Bell size={16} className="text-brand-mint" />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-bold text-sm">Stay in the loop</p>
-          <p className="text-xs text-green-200 mt-0.5 leading-relaxed">
-            Get notified when someone comments on your post, or when there's a disease-risk weather alert for your area.
-          </p>
+          <p className="font-bold text-sm">{t('notifBanner.title')}</p>
+          <p className="text-xs text-green-200 mt-0.5 leading-relaxed">{t('notifBanner.subtitle')}</p>
           <div className="flex gap-2 mt-3">
             <button
               onClick={handleEnable}
               disabled={loading}
               className="bg-brand-mint text-forest-mid text-xs font-bold px-4 py-1.5 rounded-full disabled:opacity-60"
             >
-              {loading ? 'Enabling…' : 'Allow notifications'}
+              {loading ? t('notifBanner.enabling') : t('notifBanner.allow')}
             </button>
             <button onClick={dismiss} className="text-green-200 text-xs font-semibold px-2 py-1.5">
-              Not now
+              {t('notifBanner.notNow')}
             </button>
           </div>
         </div>

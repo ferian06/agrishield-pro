@@ -36,8 +36,19 @@ export const notificationService = {
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
       })
+
+      // Try to get location so backend can send weather alerts
+      let lat = null, lng = null
+      try {
+        const pos = await new Promise((resolve, reject) =>
+          navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000 })
+        )
+        lat = pos.coords.latitude
+        lng = pos.coords.longitude
+      } catch { /* location not available — weather alerts won't fire but push still works */ }
+
       const api = (await import('./api')).default
-      await api.post('/notifications/subscribe', { subscription: sub.toJSON() })
+      await api.post('/notifications/subscribe', { subscription: sub.toJSON(), lat, lng })
       localStorage.setItem('gg_push_enabled', '1')
       return { success: true }
     } catch {

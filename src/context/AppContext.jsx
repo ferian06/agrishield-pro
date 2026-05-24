@@ -1,7 +1,10 @@
 import React, { createContext, useState, useContext, useCallback, useEffect, useMemo } from 'react';
 import { cropService } from '../services/cropService';
+import { treatmentService } from '../services/treatmentService';
 
 const AppContext = createContext();
+
+const SCAN_CACHE_KEY = 'gg_scan_cache';
 
 function normalizeScan(s) {
   const cropName = (s.crop_type || 'plant');
@@ -14,6 +17,7 @@ function normalizeScan(s) {
     date: new Date(s.created_at).toLocaleDateString(),
     bg: null,
     recommendations: s.recommendations || [],
+    aiProvider: s.ai_provider || 'stub',
   };
 }
 
@@ -42,12 +46,46 @@ export const AppProvider = ({ children }) => {
   const [treatmentLog, setTreatmentLog]       = useState([]);
   const [guildPosts, setGuildPosts]           = useState([]);
   const [feedbackLog, setFeedbackLog]         = useState([]);
+  const [isOffline, setIsOffline]             = useState(false);
 
-  // Load real scan history from backend whenever user logs in
+  // Load scan history — use localStorage cache as immediate fallback
   useEffect(() => {
-    if (!user) { setScanHistory([]); return; }
+    if (!user) {
+      setScanHistory([]);
+      return;
+    }
+
+    // Show cached data right away while fetching
+    try {
+      const cached = localStorage.getItem(SCAN_CACHE_KEY);
+      if (cached) setScanHistory(JSON.parse(cached));
+    } catch {}
+
     cropService.getScanHistory()
-      .then(({ scans }) => setScanHistory((scans || []).map(normalizeScan)))
+      .then(({ scans }) => {
+        const normalized = (scans || []).map(normalizeScan);
+        setScanHistory(normalized);
+        localStorage.setItem(SCAN_CACHE_KEY, JSON.stringify(normalized));
+        setIsOffline(false);
+      })
+      .catch(() => {
+        // Keep cached version — show offline indicator
+        setIsOffline(true);
+      });
+  }, [user]);
+
+  // Load treatment history from backend on login
+  useEffect(() => {
+    if (!user) { setTreatmentLog([]); return; }
+    treatmentService.getHistory()
+      .then(({ logs }) => {
+        setTreatmentLog(
+          (logs || []).map(l => ({
+            scanId: l.scan_id,
+            time: new Date(l.applied_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          }))
+        );
+      })
       .catch(() => {});
   }, [user]);
 
@@ -70,17 +108,25 @@ export const AppProvider = ({ children }) => {
   }, [scanHistory]);
 
   const addScan = (scan) => {
-    setScanHistory(prev => [scan, ...prev]);
+    setScanHistory(prev => {
+      const updated = [scan, ...prev];
+      localStorage.setItem(SCAN_CACHE_KEY, JSON.stringify(updated));
+      return updated;
+    });
     setActiveDiagnosis(scan);
   };
 
   const markTreatment = (scanId) => {
+    // Optimistic local update immediately
     setTreatmentLog(prev => {
       if (prev.find(t => t.scanId === scanId)) return prev;
       const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       return [...prev, { scanId, time }];
     });
+    // Persist to backend (fire-and-forget)
+    treatmentService.log(scanId).catch(() => {});
   };
+
   const getTreatment = (scanId) => treatmentLog.find(t => t.scanId === scanId);
 
   const submitFeedback = (scanId, rating) => {
@@ -112,6 +158,7 @@ export const AppProvider = ({ children }) => {
       feedbackLog, submitFeedback, getFeedback,
       fieldPlots,
       guildPosts, setGuildPosts, toggleLike, addPost,
+      isOffline,
     }}>
       {children}
     </AppContext.Provider>

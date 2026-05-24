@@ -263,9 +263,9 @@ router.post('/', requireAuth, async (req, res) => {
     }
 
     const dbResult = await db.execute({
-      sql: `INSERT INTO scans (user_id, crop_type, image_data, disease, confidence, severity, recommendations, status)
-            VALUES (?, ?, ?, ?, ?, ?, ?, 'completed')`,
-      args: [req.user.id, cropType, image || null, result.disease, result.confidence, result.severity, JSON.stringify(result.recommendations)],
+      sql: `INSERT INTO scans (user_id, crop_type, image_data, disease, confidence, severity, recommendations, status, ai_provider)
+            VALUES (?, ?, ?, ?, ?, ?, ?, 'completed', ?)`,
+      args: [req.user.id, cropType, image || null, result.disease, result.confidence, result.severity, JSON.stringify(result.recommendations), aiProvider],
     });
 
     res.status(201).json({
@@ -285,7 +285,7 @@ router.post('/', requireAuth, async (req, res) => {
 router.get('/history', requireAuth, async (req, res) => {
   try {
     const scans = all(await db.execute({
-      sql: `SELECT id, crop_type, disease, confidence, severity, recommendations, status, created_at
+      sql: `SELECT id, crop_type, disease, confidence, severity, recommendations, status, ai_provider, created_at
             FROM scans WHERE user_id = ? ORDER BY created_at DESC LIMIT 50`,
       args: [req.user.id],
     })).map(parseScan);

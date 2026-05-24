@@ -1,0 +1,30 @@
+{
+  "nav": { "feed": "Fil Communautaire", "cropsense": "CropSense", "resources": "Hub Ressources", "profile": "Profil" },
+  "common": { "loading": "Chargement…", "error": "Une erreur s'est produite", "retry": "Réessayer", "signOut": "Déconnexion", "share": "Partager", "online": "En ligne", "save": "Enregistrer", "cancel": "Annuler" },
+  "feed": {
+    "title": "Fil Communautaire", "subtitle": "Observations & alertes communautaires",
+    "mission": "Une plateforme collaborative IA qui aide les petits agriculteurs grâce au diagnostic hors ligne et à l'intelligence collective.",
+    "noFindings": "Aucune observation", "noFindingsHint": "Soyez le premier à partager une observation!",
+    "filter": { "all": "Tout", "earlyBlight": "Mildiou Précoce", "lateBlight": "Mildiou Tardif", "commonRust": "Rouille Commune", "leafCurl": "Frisure Foliaire", "powderyMildew": "Oïdium", "allClear": "Sain", "other": "Autre" },
+    "comments": { "placeholder": "Ajouter un commentaire…", "noComments": "Aucun commentaire — soyez le premier!", "error": "Échec de publication. Réessayez." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Diagnostic de cultures alimenté par l'IA",
+    "scan": "Scanner la Plante", "scanning": "Analyse en cours…", "newScan": "Nouveau Scan",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Mode Démo" },
+    "treatment": { "applied": "Traitement Appliqué", "markApplied": "Marquer le Traitement Appliqué", "loggedAt": "Enregistré aujourd'hui à" },
+    "voice": { "start": "Démarrer le Guide Vocal", "stop": "Arrêter le Guide Vocal" }
+  },
+  "resources": {
+    "title": "Hub Ressources", "subtitle": "Météo, santé des cultures & protocoles de traitement",
+    "tabs": { "weather": "Météo", "crops": "Mes Cultures", "treatments": "Traitements" }
+  },
+  "profile": {
+    "title": "Profil", "memberSince": "Membre depuis",
+    "stats": { "scans": "Scans", "posts": "Publications" },
+    "notifications": { "title": "Notifications", "subtitle": "Alertes pour commentaires & météo", "enabled": "Activé", "enable": "Activer", "notSupported": "Non supporté sur ce navigateur" },
+    "language": { "title": "Langue", "en": "English", "fr": "Français", "sw": "Kiswahili" },
+    "signOut": "Déconnexion", "version": "Version"
+  },
+  "notifBanner": { "title": "Restez informé", "subtitle": "Recevez des alertes quand quelqu'un commente votre publication ou en cas d'alerte météo.", "allow": "Autoriser les notifications", "notNow": "Plus tard", "enabling": "Activation…" }
+}

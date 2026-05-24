@@ -1,0 +1,30 @@
+{
+  "nav": { "feed": "Guild Feed", "cropsense": "CropSense", "resources": "Resource Hub", "profile": "Profile" },
+  "common": { "loading": "Loading…", "error": "Something went wrong", "retry": "Try Again", "signOut": "Sign Out", "share": "Share", "online": "Online", "save": "Save", "cancel": "Cancel" },
+  "feed": {
+    "title": "Guild Feed", "subtitle": "Community findings & alerts",
+    "mission": "A community-driven, AI-powered platform empowering smallholder farmers through collaborative intelligence and offline-first diagnostics.",
+    "noFindings": "No findings yet", "noFindingsHint": "Be the first to share a field observation!",
+    "filter": { "all": "All", "earlyBlight": "Early Blight", "lateBlight": "Late Blight", "commonRust": "Common Rust", "leafCurl": "Leaf Curl", "powderyMildew": "Powdery Mildew", "allClear": "All Clear", "other": "Other" },
+    "comments": { "placeholder": "Add a comment…", "noComments": "No comments yet — be the first!", "error": "Could not post comment. Try again." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "AI-powered offline crop diagnostics",
+    "scan": "Scan Plant", "scanning": "Analysing…", "newScan": "New Scan",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Demo Mode" },
+    "treatment": { "applied": "Treatment Applied", "markApplied": "Mark Treatment Applied", "loggedAt": "Logged today at" },
+    "voice": { "start": "Initialize Voice Guidance", "stop": "Stop Voice Guidance" }
+  },
+  "resources": {
+    "title": "Resource Hub", "subtitle": "Weather, crop health & treatment protocols",
+    "tabs": { "weather": "Weather", "crops": "My Crops", "treatments": "Treatments" }
+  },
+  "profile": {
+    "title": "Profile", "memberSince": "Member since",
+    "stats": { "scans": "Scans", "posts": "Posts" },
+    "notifications": { "title": "Notifications", "subtitle": "Alerts for comments & weather", "enabled": "Enabled", "enable": "Enable", "notSupported": "Not supported on this browser" },
+    "language": { "title": "Language", "en": "English", "fr": "Français", "sw": "Kiswahili" },
+    "signOut": "Sign Out", "version": "Version"
+  },
+  "notifBanner": { "title": "Stay in the loop", "subtitle": "Get notified when someone comments on your post, or when there's a disease-risk weather alert for your area.", "allow": "Allow notifications", "notNow": "Not now", "enabling": "Enabling…" }
+}
