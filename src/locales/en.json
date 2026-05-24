@@ -23,8 +23,9 @@
     "title": "Profile", "memberSince": "Member since",
     "stats": { "scans": "Scans", "posts": "Posts" },
     "notifications": { "title": "Notifications", "subtitle": "Alerts for comments & weather", "enabled": "Enabled", "enable": "Enable", "notSupported": "Not supported on this browser" },
-    "language": { "title": "Language", "en": "English", "fr": "Français", "sw": "Kiswahili" },
+    "language": { "title": "Language", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
     "signOut": "Sign Out", "version": "Version"
   },
-  "notifBanner": { "title": "Stay in the loop", "subtitle": "Get notified when someone comments on your post, or when there's a disease-risk weather alert for your area.", "allow": "Allow notifications", "notNow": "Not now", "enabling": "Enabling…" }
+  "notifBanner": { "title": "Stay in the loop", "subtitle": "Get notified when someone comments on your post, or when there's a disease-risk weather alert for your area.", "allow": "Allow notifications", "notNow": "Not now", "enabling": "Enabling…" },
+  "login": { "welcome": "Welcome back", "create": "Create account", "name": "Your name", "email": "Email address", "password": "Password (min. 6 chars)", "signIn": "Sign in", "register": "Create account", "noAccount": "Don't have an account? Sign up", "hasAccount": "Already have an account? Sign in", "chooseLanguage": "Choose your language", "tagline": "AI-powered crop diagnostics for smallholder farmers", "selectAndContinue": "Tap a language to continue" }
 }

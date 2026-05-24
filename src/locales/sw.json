@@ -23,8 +23,9 @@
     "title": "Wasifu", "memberSince": "Mwanachama tangu",
     "stats": { "scans": "Uchunguzi", "posts": "Machapisho" },
     "notifications": { "title": "Arifa", "subtitle": "Arifa za maoni na hali ya hewa", "enabled": "Imewezeshwa", "enable": "Wezesha", "notSupported": "Haihamiliwi kwenye kivinjari hiki" },
-    "language": { "title": "Lugha", "en": "English", "fr": "Français", "sw": "Kiswahili" },
+    "language": { "title": "Lugha", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
     "signOut": "Ondoka", "version": "Toleo"
   },
-  "notifBanner": { "title": "Kaa katika mkondo", "subtitle": "Pata arifa wakati mtu anapojibu chapisho lako au kunapokuwa na onyo la hali ya hewa.", "allow": "Ruhusu arifa", "notNow": "Si sasa", "enabling": "Inawezeshwa…" }
+  "notifBanner": { "title": "Kaa katika mkondo", "subtitle": "Pata arifa wakati mtu anapojibu chapisho lako au kunapokuwa na onyo la hali ya hewa.", "allow": "Ruhusu arifa", "notNow": "Si sasa", "enabling": "Inawezeshwa…" },
+  "login": { "welcome": "Karibu tena", "create": "Fungua akaunti", "name": "Jina lako", "email": "Anwani ya barua pepe", "password": "Nywila (herufi 6 ndogo)", "signIn": "Ingia", "register": "Fungua akaunti", "noAccount": "Huna akaunti? Jiandikishe", "hasAccount": "Una akaunti? Ingia", "chooseLanguage": "Chagua lugha yako", "tagline": "Uchunguzi wa mazao na AI kwa wakulima wadogo", "selectAndContinue": "Gonga lugha ili uendelee" }
 }

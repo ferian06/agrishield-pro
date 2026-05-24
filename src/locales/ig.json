@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "Nzọụkwụ Obodo", "cropsense": "CropSense", "resources": "Ebe Nchekwa Ihe", "profile": "Profaịlụ" },
+  "common": { "loading": "Na-ebu…", "error": "Ihe ọjọọ mere", "retry": "Nwaa Ọzọ", "signOut": "Pụọ", "share": "Kekọrịta", "online": "Online", "save": "Chekwaa", "cancel": "Kagbuo" },
+  "feed": {
+    "title": "Nzọụkwụ Obodo", "subtitle": "Nchọpụta & ọchịchọ obodo",
+    "mission": "Ikpo okwu obodo nke AI na-akwado maka ndị ọrụ ugbo obere site na nyocha na-enweghị ịntanetị.",
+    "noFindings": "Enweghị nchọpụta ka", "noFindingsHint": "Bụrụ nke mbụ ikekọrịta ihe ị hụrụ!",
+    "filter": { "all": "Niile", "earlyBlight": "Ọrịa Mbụ", "lateBlight": "Ọrịa Ọhụrụ", "commonRust": "Ọrịa Rust Ọdịnala", "leafCurl": "Igwu Akwụkwọ", "powderyMildew": "Nfụchi Urugbu", "allClear": "Ahụike Ọma", "other": "Ndị ọzọ" },
+    "comments": { "placeholder": "Tinye okwu…", "noComments": "Enweghị okwu ka — bụrụ nke mbụ!", "error": "Enweghị ike izipu okwu. Nwaa ọzọ." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Nyocha ọjị AI na-enweghị ịntanetị",
+    "scan": "Nyochaa Osisi", "scanning": "Na-enyocha…", "newScan": "Nyocha Ọhụrụ",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Ọnọdụ Demo" },
+    "treatment": { "applied": "Agwọ Eji", "markApplied": "Kọọ na Agwọ Eji", "loggedAt": "Edekọ taa na" },
+    "voice": { "start": "Malite Nduzi Olu", "stop": "Kwụsị Nduzi Olu" }
+  },
+  "resources": {
+    "title": "Ebe Nchekwa Ihe", "subtitle": "Ihu igwe, ahụike ọjị & usoro agwọ",
+    "tabs": { "weather": "Ihu Igwe", "crops": "Ọjị M", "treatments": "Ọgwụ" }
+  },
+  "profile": {
+    "title": "Profaịlụ", "memberSince": "Onye otu kemgbe",
+    "stats": { "scans": "Nyocha", "posts": "Ozi" },
+    "notifications": { "title": "Ọkwa", "subtitle": "Ọchịchọ maka okwu & ihu igwe", "enabled": "Ọ dị ọrụ", "enable": "Mee ka ọ rụọ", "notSupported": "Anaghị akwado na nchọgharị a" },
+    "language": { "title": "Asụsụ", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "Pụọ", "version": "Ụdị"
+  },
+  "notifBanner": { "title": "Nọrọ n'ọkwa", "subtitle": "Nweta ọkwa mgbe onye tinye okwu ma ọ bụ mgbe ọchịchọ ihu igwe pụtara.", "allow": "Kwere ọkwa", "notNow": "Ọ bụghị ugbu a", "enabling": "Na-eme ka ọ rụọ…" },
+  "login": { "welcome": "Nnọọ laa", "create": "Mee akaụntụ", "name": "Aha gị", "email": "Adreesị email", "password": "Okwuntughe (opekata 6)", "signIn": "Banye", "register": "Mee akaụntụ", "noAccount": "Enweghị akaụntụ? Debanye aha", "hasAccount": "Nwere akaụntụ? Banye", "chooseLanguage": "Họrọ asụsụ gị", "tagline": "Nyocha ọjị AI maka ndị ọrụ ugbo obere", "selectAndContinue": "Pịa asụsụ iji gaa n'ihu" }
+}

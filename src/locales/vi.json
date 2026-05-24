@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "Bảng tin Cộng đồng", "cropsense": "CropSense", "resources": "Trung tâm Tài nguyên", "profile": "Hồ sơ" },
+  "common": { "loading": "Đang tải…", "error": "Đã xảy ra lỗi", "retry": "Thử lại", "signOut": "Đăng xuất", "share": "Chia sẻ", "online": "Trực tuyến", "save": "Lưu", "cancel": "Hủy" },
+  "feed": {
+    "title": "Bảng tin Cộng đồng", "subtitle": "Phát hiện & cảnh báo cộng đồng",
+    "mission": "Nền tảng cộng đồng được AI hỗ trợ giúp nông dân nhỏ thông qua chẩn đoán offline.",
+    "noFindings": "Chưa có phát hiện nào", "noFindingsHint": "Hãy là người đầu tiên chia sẻ quan sát!",
+    "filter": { "all": "Tất cả", "earlyBlight": "Đốm sớm", "lateBlight": "Đốm muộn", "commonRust": "Rỉ sắt thông thường", "leafCurl": "Cuốn lá", "powderyMildew": "Phấn trắng", "allClear": "Khỏe mạnh", "other": "Khác" },
+    "comments": { "placeholder": "Thêm bình luận…", "noComments": "Chưa có bình luận — hãy là người đầu tiên!", "error": "Không thể đăng bình luận. Thử lại." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Chẩn đoán cây trồng bằng AI offline",
+    "scan": "Quét Cây", "scanning": "Đang phân tích…", "newScan": "Quét Mới",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Chế độ Demo" },
+    "treatment": { "applied": "Đã Áp Dụng Điều Trị", "markApplied": "Đánh Dấu Đã Điều Trị", "loggedAt": "Đã ghi hôm nay lúc" },
+    "voice": { "start": "Bắt đầu Hướng dẫn Giọng nói", "stop": "Dừng Hướng dẫn Giọng nói" }
+  },
+  "resources": {
+    "title": "Trung tâm Tài nguyên", "subtitle": "Thời tiết, sức khỏe cây trồng & phác đồ điều trị",
+    "tabs": { "weather": "Thời tiết", "crops": "Cây trồng của tôi", "treatments": "Điều trị" }
+  },
+  "profile": {
+    "title": "Hồ sơ", "memberSince": "Thành viên từ",
+    "stats": { "scans": "Lần quét", "posts": "Bài đăng" },
+    "notifications": { "title": "Thông báo", "subtitle": "Cảnh báo bình luận & thời tiết", "enabled": "Đã bật", "enable": "Bật", "notSupported": "Trình duyệt này không hỗ trợ" },
+    "language": { "title": "Ngôn ngữ", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "Đăng xuất", "version": "Phiên bản"
+  },
+  "notifBanner": { "title": "Cập nhật liên tục", "subtitle": "Nhận thông báo khi có người bình luận hoặc có cảnh báo thời tiết.", "allow": "Cho phép thông báo", "notNow": "Không phải bây giờ", "enabling": "Đang bật…" },
+  "login": { "welcome": "Chào mừng trở lại", "create": "Tạo tài khoản", "name": "Tên của bạn", "email": "Địa chỉ email", "password": "Mật khẩu (tối thiểu 6 ký tự)", "signIn": "Đăng nhập", "register": "Tạo tài khoản", "noAccount": "Chưa có tài khoản? Đăng ký", "hasAccount": "Đã có tài khoản? Đăng nhập", "chooseLanguage": "Chọn ngôn ngữ của bạn", "tagline": "Chẩn đoán cây trồng bằng AI cho nông dân nhỏ", "selectAndContinue": "Nhấn vào ngôn ngữ để tiếp tục" }
+}

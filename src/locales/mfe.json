@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "Feed Kominiote", "cropsense": "CropSense", "resources": "Hub Resours", "profile": "Profil" },
+  "common": { "loading": "Pe sarz…", "error": "Enn erer finn ariv", "retry": "Esey Ankor", "signOut": "Dekonekte", "share": "Partaze", "online": "Online", "save": "Sov", "cancel": "Anile" },
+  "feed": {
+    "title": "Feed Kominiote", "subtitle": "Trouveray & alert kominiote",
+    "mission": "Enn platform kominiote avek AI ki ed ti-fermye atraver diagnostic san koneksyon internet.",
+    "noFindings": "Pa ena trouveray ankor", "noFindingsHint": "Fer premye pou partaz enn observezion!",
+    "filter": { "all": "Tou", "earlyBlight": "Brlir Bonner", "lateBlight": "Brlir Tarde", "commonRust": "Rouy Kominn", "leafCurl": "Fey Fri", "powderyMildew": "Poud Blan", "allClear": "Tou Bon", "other": "Lot" },
+    "comments": { "placeholder": "Azoute enn koman…", "noComments": "Pa ena koman ankor — fer premye!", "error": "Pa kapav post koman. Esey ankor." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Diagnostic rekolt AI san koneksyon",
+    "scan": "Skan Plant", "scanning": "Analiz…", "newScan": "Nouvo Skan",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Mod Demo" },
+    "treatment": { "applied": "Tretman Aplike", "markApplied": "Marke Tretman Aplike", "loggedAt": "Enregistre zordi a" },
+    "voice": { "start": "Koumans Gid Vokal", "stop": "Arrete Gid Vokal" }
+  },
+  "resources": {
+    "title": "Hub Resours", "subtitle": "Meteo, lasante rekolt & protokol tretman",
+    "tabs": { "weather": "Meteo", "crops": "Mo Rekolt", "treatments": "Tretman" }
+  },
+  "profile": {
+    "title": "Profil", "memberSince": "Manb depi",
+    "stats": { "scans": "Skan", "posts": "Post" },
+    "notifications": { "title": "Notifikasion", "subtitle": "Alert pou koman & meteo", "enabled": "Aktive", "enable": "Aktiv", "notSupported": "Pa sipporte lor sa navigater" },
+    "language": { "title": "Lang", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "Dekonekte", "version": "Version"
+  },
+  "notifBanner": { "title": "Reste konekte", "subtitle": "Resevwar notifikasion kan kikenn repond lor to post, ou kan ena enn alert meteo.", "allow": "Autorize notifikasion", "notNow": "Pa aster", "enabling": "Pe aktive…" },
+  "login": { "welcome": "Bienveni ankor", "create": "Kre enn kont", "name": "To nom", "email": "Adrès imel", "password": "Modpas (min. 6 karaktèr)", "signIn": "Konekte", "register": "Kre kont", "noAccount": "Pa ena kont? Enregistre twa", "hasAccount": "Deza enn kont? Konekte", "chooseLanguage": "Swazir to lang", "tagline": "Diagnostic rekolt AI pou ti-fermye", "selectAndContinue": "Klik lor enn lang pou kontinie" }
+}

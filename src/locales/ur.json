@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "کمیونٹی فیڈ", "cropsense": "CropSense", "resources": "وسائل مرکز", "profile": "پروفائل" },
+  "common": { "loading": "لوڈ ہو رہا ہے…", "error": "کچھ غلط ہوا", "retry": "دوبارہ کوشش کریں", "signOut": "سائن آؤٹ", "share": "شیئر کریں", "online": "آن لائن", "save": "محفوظ کریں", "cancel": "منسوخ" },
+  "feed": {
+    "title": "کمیونٹی فیڈ", "subtitle": "کمیونٹی دریافتیں اور انتباہات",
+    "mission": "ایک AI-طاقتور کمیونٹی پلیٹ فارم جو چھوٹے کسانوں کو آف لائن تشخیص کے ذریعے بااختیار بناتا ہے۔",
+    "noFindings": "ابھی کوئی دریافت نہیں", "noFindingsHint": "مشاہدہ شیئر کرنے والے پہلے بنیں!",
+    "filter": { "all": "سب", "earlyBlight": "ابتدائی جھلساؤ", "lateBlight": "آخری جھلساؤ", "commonRust": "عام زنگ", "leafCurl": "پتوں کا مڑنا", "powderyMildew": "پاؤڈری ملڈیو", "allClear": "صحتمند", "other": "دیگر" },
+    "comments": { "placeholder": "تبصرہ شامل کریں…", "noComments": "ابھی کوئی تبصرہ نہیں — پہلے بنیں!", "error": "تبصرہ پوسٹ نہیں ہوا۔ دوبارہ کوشش کریں۔" }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "AI سے چلنے والی آف لائن فصل تشخیص",
+    "scan": "پودا اسکین کریں", "scanning": "تجزیہ ہو رہا ہے…", "newScan": "نیا اسکین",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "ڈیمو موڈ" },
+    "treatment": { "applied": "علاج لاگو ہوا", "markApplied": "علاج لاگو کے طور پر نشان لگائیں", "loggedAt": "آج لاگ کیا گیا" },
+    "voice": { "start": "وائس گائیڈنس شروع کریں", "stop": "وائس گائیڈنس روکیں" }
+  },
+  "resources": {
+    "title": "وسائل مرکز", "subtitle": "موسم، فصل کی صحت اور علاج کے پروٹوکول",
+    "tabs": { "weather": "موسم", "crops": "میری فصلیں", "treatments": "علاج" }
+  },
+  "profile": {
+    "title": "پروفائل", "memberSince": "رکن بنے",
+    "stats": { "scans": "اسکین", "posts": "پوسٹ" },
+    "notifications": { "title": "اطلاعات", "subtitle": "تبصروں اور موسم کی انتباہات", "enabled": "فعال", "enable": "فعال کریں", "notSupported": "اس براؤزر میں سپورٹ نہیں" },
+    "language": { "title": "زبان", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "سائن آؤٹ", "version": "ورژن"
+  },
+  "notifBanner": { "title": "باخبر رہیں", "subtitle": "جب کوئی تبصرہ کرے یا موسمی انتباہ ہو تو اطلاع پائیں۔", "allow": "اطلاعات کی اجازت دیں", "notNow": "ابھی نہیں", "enabling": "فعال ہو رہا ہے…" },
+  "login": { "welcome": "واپسی پر خوش آمدید", "create": "اکاؤنٹ بنائیں", "name": "آپ کا نام", "email": "ای میل پتہ", "password": "پاسورڈ (کم از کم 6 حروف)", "signIn": "سائن ان", "register": "اکاؤنٹ بنائیں", "noAccount": "اکاؤنٹ نہیں؟ سائن اپ کریں", "hasAccount": "اکاؤنٹ ہے؟ سائن ان کریں", "chooseLanguage": "اپنی زبان منتخب کریں", "tagline": "چھوٹے کسانوں کے لیے AI فصل تشخیص", "selectAndContinue": "جاری رکھنے کے لیے زبان ٹیپ کریں" }
+}

@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "Ifunni Agbegbe", "cropsense": "CropSense", "resources": "Ile-iṣẹ Awọn Orisun", "profile": "Profaili" },
+  "common": { "loading": "Ń gba…", "error": "Nkan kan ko tọ", "retry": "Gbiyanju Lẹẹkansi", "signOut": "Jade", "share": "Pin", "online": "Online", "save": "Fipamọ", "cancel": "Fagilee" },
+  "feed": {
+    "title": "Ifunni Agbegbe", "subtitle": "Awọn awari & itaniji agbegbe",
+    "mission": "Pẹpẹ agbegbe ti AI ṣe atilẹyin fun awọn agbe kekere pẹlu iwadii aisi-intanẹẹti.",
+    "noFindings": "Ko si awọn awari sibẹ", "noFindingsHint": "Jẹ akọkọ lati pin akiyesi aaye!",
+    "filter": { "all": "Gbogbo", "earlyBlight": "Iparun Ìbẹrẹ", "lateBlight": "Iparun Pẹ", "commonRust": "Ipata Wọpọ", "leafCurl": "Yíyí Àwọn Ewé", "powderyMildew": "Fungus Àlùkò", "allClear": "Ni ilera", "other": "Miiran" },
+    "comments": { "placeholder": "Fi asọye kun…", "noComments": "Ko si asọye sibẹ — jẹ akọkọ!", "error": "Ko le fi asọye ranṣẹ. Gbiyanju lẹẹkansi." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Iwadii irugbin nipasẹ AI laisi intanẹẹti",
+    "scan": "Ṣayẹwo Ọgbin", "scanning": "Ń ṣe itupalẹ…", "newScan": "Ṣayẹwo Tuntun",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Ipo Demo" },
+    "treatment": { "applied": "Itọju Ti Lo", "markApplied": "Samisi Itọju Ti Lo", "loggedAt": "Ti gbasilẹ loni ni" },
+    "voice": { "start": "Bẹrẹ Itọsọna Ohun", "stop": "Da Itọsọna Ohun Duro" }
+  },
+  "resources": {
+    "title": "Ile-iṣẹ Awọn Orisun", "subtitle": "Oju ojo, ilera irugbin & awọn ilana itọju",
+    "tabs": { "weather": "Oju Ọjọ", "crops": "Awọn Irugbin Mi", "treatments": "Awọn Itọju" }
+  },
+  "profile": {
+    "title": "Profaili", "memberSince": "Ọmọ ẹgbẹ lati",
+    "stats": { "scans": "Awọn Ṣayẹwo", "posts": "Awọn Ifiweranṣẹ" },
+    "notifications": { "title": "Awọn Ìwifunni", "subtitle": "Itaniji fun awọn asọye & oju ojo", "enabled": "Ti Muu ṣiṣẹ", "enable": "Muu ṣiṣẹ", "notSupported": "Ko ṣe atilẹyin lori aṣàwákiri yii" },
+    "language": { "title": "Ede", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "Jade", "version": "Ẹya"
+  },
+  "notifBanner": { "title": "Duro ni ìmọ", "subtitle": "Gba ìwifunni nigba ti ẹnikan ṣe asọye tabi nigba itaniji oju ojo.", "allow": "Gba awọn ìwifunni laaye", "notNow": "Kii ṣe bayi", "enabling": "Ń muu ṣiṣẹ…" },
+  "login": { "welcome": "Ẹ káàbọ̀ padà", "create": "Ṣẹ̀dá àkọọ́lẹ̀", "name": "Orúkọ rẹ", "email": "Àdírẹ́sì ìmêèlì", "password": "Ọ̀rọ̀ àṣírí (kéré 6)", "signIn": "Wọlé", "register": "Ṣẹ̀dá àkọọ́lẹ̀", "noAccount": "Kò sí àkọọ́lẹ̀? Forúkọ", "hasAccount": "Ní àkọọ́lẹ̀? Wọlé", "chooseLanguage": "Yan ede rẹ", "tagline": "Iwadii irugbin AI fun awọn agbe kekere", "selectAndContinue": "Tẹ ede kan lati tẹsiwaju" }
+}

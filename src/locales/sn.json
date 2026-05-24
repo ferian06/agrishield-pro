@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "Feed yeNharaunda", "cropsense": "CropSense", "resources": "Nzvimbo yeZvitarisiro", "profile": "Pfupiso" },
+  "common": { "loading": "Kufura…", "error": "Chimwe chinhu chakakanganisa", "retry": "Edza Zvakare", "signOut": "Buda", "share": "Govera", "online": "Online", "save": "Chengetedza", "cancel": "Kanzura" },
+  "feed": {
+    "title": "Feed yeNharaunda", "subtitle": "Zvinowanikwa & yambiro dzenharaunda",
+    "mission": "Nzvimbo yenharaunda ine AI inobatsira varimi vadiki nezvekuongorora pasina internet.",
+    "noFindings": "Hapana zvinowanikwa", "noFindingsHint": "Iva wekutanga kugovera chinoona!",
+    "filter": { "all": "Zvose", "earlyBlight": "Chirwere cheKutanga", "lateBlight": "Chirwere chekupedzisira", "commonRust": "Rust Yakajairika", "leafCurl": "Kusuruka kweMashizha", "powderyMildew": "Peronospora", "allClear": "Zvose Zvakanaka", "other": "Zvimwe" },
+    "comments": { "placeholder": "Wedzera maonero…", "noComments": "Hapana maonero — iva wekutanga!", "error": "Haigoni kutumira. Edza zvakare." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Kuongorora mbeu ne-AI pasina internet",
+    "scan": "Ongorora Muriwo", "scanning": "Kuongorora…", "newScan": "Kuongorora Kutsva",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Nzira yeDemo" },
+    "treatment": { "applied": "Mushonga Washandiswa", "markApplied": "Maka Mushonga Washandiswa", "loggedAt": "Yakanyorwa nhasi na" },
+    "voice": { "start": "Tanga Zviunganidzwa zveInzwi", "stop": "Misa Zviunganidzwa zveInzwi" }
+  },
+  "resources": {
+    "title": "Nzvimbo yeZvitarisiro", "subtitle": "Mamiriro ekunze, utano hwembeu & maitiro okurapwa",
+    "tabs": { "weather": "Mamiriro Ekunze", "crops": "Mbeu Dzangu", "treatments": "Kurapwa" }
+  },
+  "profile": {
+    "title": "Pfupiso", "memberSince": "Nhengo kubva",
+    "stats": { "scans": "Ongororo", "posts": "Zvinyorwa" },
+    "notifications": { "title": "Zviropafadzo", "subtitle": "Yambiro dze maonero & mamiriro ekunze", "enabled": "Yakasvinudzwa", "enable": "Svinudza", "notSupported": "Haishandikwi pane browser iyi" },
+    "language": { "title": "Mutauro", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "Buda", "version": "Vhezheni"
+  },
+  "notifBanner": { "title": "Ramba uchizviziva", "subtitle": "Gashira yambiro panonamatira mumwe munhu kana panoitika yambiro yemamiriro ekunze.", "allow": "Tendera zviropafadzo", "notNow": "Kwete izvozvi", "enabling": "Kusvindudza…" },
+  "login": { "welcome": "Tinogamuchira", "create": "Gadzira akaunti", "name": "Zita rako", "email": "Kero ye-imeri", "password": "Pasiwadhi (mash. 6)", "signIn": "Pinda", "register": "Gadzira akaunti", "noAccount": "Huna akaunti? Nyoresa", "hasAccount": "Une akaunti? Pinda", "chooseLanguage": "Sarudza mutauro wako", "tagline": "Kuongorora mbeu ne-AI mavavirimi vadiki", "selectAndContinue": "Tinya mutauro kuti urambe uchienda" }
+}

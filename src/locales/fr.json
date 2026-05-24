@@ -23,8 +23,9 @@
     "title": "Profil", "memberSince": "Membre depuis",
     "stats": { "scans": "Scans", "posts": "Publications" },
     "notifications": { "title": "Notifications", "subtitle": "Alertes pour commentaires & météo", "enabled": "Activé", "enable": "Activer", "notSupported": "Non supporté sur ce navigateur" },
-    "language": { "title": "Langue", "en": "English", "fr": "Français", "sw": "Kiswahili" },
+    "language": { "title": "Langue", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
     "signOut": "Déconnexion", "version": "Version"
   },
-  "notifBanner": { "title": "Restez informé", "subtitle": "Recevez des alertes quand quelqu'un commente votre publication ou en cas d'alerte météo.", "allow": "Autoriser les notifications", "notNow": "Plus tard", "enabling": "Activation…" }
+  "notifBanner": { "title": "Restez informé", "subtitle": "Recevez des alertes quand quelqu'un commente votre publication ou en cas d'alerte météo.", "allow": "Autoriser les notifications", "notNow": "Plus tard", "enabling": "Activation…" },
+  "login": { "welcome": "Bon retour", "create": "Créer un compte", "name": "Votre nom", "email": "Adresse e-mail", "password": "Mot de passe (min. 6 car.)", "signIn": "Se connecter", "register": "Créer un compte", "noAccount": "Pas de compte ? S'inscrire", "hasAccount": "Déjà un compte ? Se connecter", "chooseLanguage": "Choisissez votre langue", "tagline": "Diagnostic de cultures IA pour les petits agriculteurs", "selectAndContinue": "Appuyez sur une langue pour continuer" }
 }

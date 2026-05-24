@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "የማህበረሰብ ፊድ", "cropsense": "CropSense", "resources": "ሀብት ማዕከል", "profile": "መገለጫ" },
+  "common": { "loading": "እየጫነ ነው…", "error": "ስህተት ተከስቷል", "retry": "እንደገና ሞክር", "signOut": "ውጣ", "share": "አካፍል", "online": "ኦንላይን", "save": "አስቀምጥ", "cancel": "ሰርዝ" },
+  "feed": {
+    "title": "የማህበረሰብ ፊድ", "subtitle": "የማህበረሰብ ግኝቶች እና ማንቂያዎች",
+    "mission": "ትናንሽ አርሶ አደሮችን ከኦፍላይን ምርመራ ጋር የሚያበቃ AI-የተደገፈ የማህበረሰብ መድረክ።",
+    "noFindings": "እስካሁን ምንም ግኝቶች የሉም", "noFindingsHint": "የሜዳ ምልከታ ለማካፈል የመጀመሪያ ሁን!",
+    "filter": { "all": "ሁሉም", "earlyBlight": "ቀደምት ብናኝ", "lateBlight": "ዘግይቶ ብናኝ", "commonRust": "ጠቅላላ ዝገት", "leafCurl": "ቅጠል መጠምዘዝ", "powderyMildew": "ዱቄቱ ፈስ", "allClear": "ጤናማ", "other": "ሌላ" },
+    "comments": { "placeholder": "አስተያየት ጨምር…", "noComments": "እስካሁን አስተያየቶች የሉም — የመጀመሪያ ሁን!", "error": "አስተያየቱ ሊለጠፍ አልቻለም። እንደገና ሞክር።" }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "AI-የሚደግፍ ኦፍላይን የሰብል ምርመራ",
+    "scan": "ዕፅ ቃኝ", "scanning": "እየተነተነ ነው…", "newScan": "አዲስ ቃኚ",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "ማሳያ ሁነታ" },
+    "treatment": { "applied": "ህክምና ተተግብሯል", "markApplied": "ህክምና ተተግብሯል ምልክት አድርግ", "loggedAt": "ዛሬ ተመዝግቧል" },
+    "voice": { "start": "የድምጽ መመሪያ ጀምር", "stop": "የድምጽ መመሪያ አቁም" }
+  },
+  "resources": {
+    "title": "ሀብት ማዕከል", "subtitle": "የአየር ሁኔታ፣ የሰብል ጤና እና የህክምና ፕሮቶኮሎች",
+    "tabs": { "weather": "የአየር ሁኔታ", "crops": "ሰብሎቼ", "treatments": "ህክምናዎች" }
+  },
+  "profile": {
+    "title": "መገለጫ", "memberSince": "አባል ከሆነ",
+    "stats": { "scans": "ቃኚዎች", "posts": "ልጥፎች" },
+    "notifications": { "title": "ማሳወቂያዎች", "subtitle": "ለአስተያየቶች እና የአየር ሁኔታ ማንቂያዎች", "enabled": "ነቅቷል", "enable": "አንቃ", "notSupported": "በዚህ አሳሽ ላይ አይደገፍም" },
+    "language": { "title": "ቋንቋ", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "ውጣ", "version": "ስሪት"
+  },
+  "notifBanner": { "title": "ቀጥሎ ሁን", "subtitle": "አንድ ሰው በልጥፍህ ላይ አስተያየት ሲሰጥ ወይም የአየር ሁኔታ ማንቂያ ሲኖር ማሳወቂያ ይደርስህ።", "allow": "ማሳወቂያዎችን ፍቀድ", "notNow": "አሁን አይደለም", "enabling": "እየነቃ ነው…" },
+  "login": { "welcome": "እንኳን ደህና መጡ", "create": "መለያ ፍጠር", "name": "ስምህ", "email": "ኢሜይል አድራሻ", "password": "የይለፍ ቃል (ቢያንስ 6 ቁምፊዎች)", "signIn": "ግባ", "register": "መለያ ፍጠር", "noAccount": "መለያ የለህም? ተመዝገብ", "hasAccount": "መለያ አለህ? ግባ", "chooseLanguage": "ቋንቋህን ምረጥ", "tagline": "ለትናንሽ አርሶ አደሮች AI-የሚደግፍ የሰብል ምርመራ", "selectAndContinue": "ለመቀጠል ቋንቋ ምረጥ" }
+}

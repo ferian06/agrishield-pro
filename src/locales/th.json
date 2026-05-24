@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "ฟีดชุมชน", "cropsense": "CropSense", "resources": "ศูนย์ทรัพยากร", "profile": "โปรไฟล์" },
+  "common": { "loading": "กำลังโหลด…", "error": "เกิดข้อผิดพลาด", "retry": "ลองอีกครั้ง", "signOut": "ออกจากระบบ", "share": "แชร์", "online": "ออนไลน์", "save": "บันทึก", "cancel": "ยกเลิก" },
+  "feed": {
+    "title": "ฟีดชุมชน", "subtitle": "การค้นพบและการแจ้งเตือนชุมชน",
+    "mission": "แพลตฟอร์มชุมชนที่ขับเคลื่อนด้วย AI เพื่อเสริมพลังเกษตรกรรายย่อยผ่านการวินิจฉัยแบบออฟไลน์",
+    "noFindings": "ยังไม่มีการค้นพบ", "noFindingsHint": "เป็นคนแรกที่แบ่งปันการสังเกตการณ์!",
+    "filter": { "all": "ทั้งหมด", "earlyBlight": "โรคใบไหม้ระยะแรก", "lateBlight": "โรคใบไหม้ระยะท้าย", "commonRust": "โรคราสนิมทั่วไป", "leafCurl": "ใบม้วน", "powderyMildew": "โรคราแป้ง", "allClear": "สุขภาพดี", "other": "อื่นๆ" },
+    "comments": { "placeholder": "เพิ่มความคิดเห็น…", "noComments": "ยังไม่มีความคิดเห็น — เป็นคนแรก!", "error": "ไม่สามารถโพสต์ความคิดเห็น ลองอีกครั้ง" }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "การวินิจฉัยพืชผลด้วย AI แบบออฟไลน์",
+    "scan": "สแกนต้นไม้", "scanning": "กำลังวิเคราะห์…", "newScan": "สแกนใหม่",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "โหมดสาธิต" },
+    "treatment": { "applied": "ใช้การรักษาแล้ว", "markApplied": "ทำเครื่องหมายการรักษาที่ใช้แล้ว", "loggedAt": "บันทึกวันนี้เวลา" },
+    "voice": { "start": "เริ่มคำแนะนำเสียง", "stop": "หยุดคำแนะนำเสียง" }
+  },
+  "resources": {
+    "title": "ศูนย์ทรัพยากร", "subtitle": "สภาพอากาศ สุขภาพพืชผล และโปรโตคอลการรักษา",
+    "tabs": { "weather": "สภาพอากาศ", "crops": "พืชผลของฉัน", "treatments": "การรักษา" }
+  },
+  "profile": {
+    "title": "โปรไฟล์", "memberSince": "สมาชิกตั้งแต่",
+    "stats": { "scans": "การสแกน", "posts": "โพสต์" },
+    "notifications": { "title": "การแจ้งเตือน", "subtitle": "การแจ้งเตือนสำหรับความคิดเห็นและสภาพอากาศ", "enabled": "เปิดใช้งาน", "enable": "เปิดใช้งาน", "notSupported": "ไม่รองรับในเบราว์เซอร์นี้" },
+    "language": { "title": "ภาษา", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "ออกจากระบบ", "version": "เวอร์ชัน"
+  },
+  "notifBanner": { "title": "ติดตามข่าวสาร", "subtitle": "รับการแจ้งเตือนเมื่อมีคนแสดงความคิดเห็นหรือมีการแจ้งเตือนสภาพอากาศ", "allow": "อนุญาตการแจ้งเตือน", "notNow": "ไม่ใช่ตอนนี้", "enabling": "กำลังเปิดใช้งาน…" },
+  "login": { "welcome": "ยินดีต้อนรับกลับ", "create": "สร้างบัญชี", "name": "ชื่อของคุณ", "email": "ที่อยู่อีเมล", "password": "รหัสผ่าน (อย่างน้อย 6 ตัว)", "signIn": "เข้าสู่ระบบ", "register": "สร้างบัญชี", "noAccount": "ยังไม่มีบัญชี? สมัครสมาชิก", "hasAccount": "มีบัญชีแล้ว? เข้าสู่ระบบ", "chooseLanguage": "เลือกภาษาของคุณ", "tagline": "การวินิจฉัยพืชผลด้วย AI สำหรับเกษตรกรรายย่อย", "selectAndContinue": "แตะภาษาเพื่อดำเนินการต่อ" }
+}

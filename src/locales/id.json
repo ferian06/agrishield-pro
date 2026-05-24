@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "Umpan Komunitas", "cropsense": "CropSense", "resources": "Pusat Sumber Daya", "profile": "Profil" },
+  "common": { "loading": "Memuat…", "error": "Ada yang salah", "retry": "Coba Lagi", "signOut": "Keluar", "share": "Bagikan", "online": "Online", "save": "Simpan", "cancel": "Batal" },
+  "feed": {
+    "title": "Umpan Komunitas", "subtitle": "Temuan & peringatan komunitas",
+    "mission": "Platform komunitas berbasis AI yang memberdayakan petani kecil melalui diagnostik offline.",
+    "noFindings": "Belum ada temuan", "noFindingsHint": "Jadilah yang pertama berbagi pengamatan lapangan!",
+    "filter": { "all": "Semua", "earlyBlight": "Hawar Awal", "lateBlight": "Hawar Akhir", "commonRust": "Karat Umum", "leafCurl": "Keriting Daun", "powderyMildew": "Embun Tepung", "allClear": "Sehat", "other": "Lainnya" },
+    "comments": { "placeholder": "Tambah komentar…", "noComments": "Belum ada komentar — jadilah yang pertama!", "error": "Gagal memposting komentar. Coba lagi." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Diagnostik tanaman bertenaga AI offline",
+    "scan": "Pindai Tanaman", "scanning": "Menganalisis…", "newScan": "Pindaian Baru",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Mode Demo" },
+    "treatment": { "applied": "Perawatan Diterapkan", "markApplied": "Tandai Perawatan Diterapkan", "loggedAt": "Dicatat hari ini pukul" },
+    "voice": { "start": "Mulai Panduan Suara", "stop": "Hentikan Panduan Suara" }
+  },
+  "resources": {
+    "title": "Pusat Sumber Daya", "subtitle": "Cuaca, kesehatan tanaman & protokol perawatan",
+    "tabs": { "weather": "Cuaca", "crops": "Tanaman Saya", "treatments": "Perawatan" }
+  },
+  "profile": {
+    "title": "Profil", "memberSince": "Anggota sejak",
+    "stats": { "scans": "Pindaian", "posts": "Postingan" },
+    "notifications": { "title": "Notifikasi", "subtitle": "Peringatan komentar & cuaca", "enabled": "Diaktifkan", "enable": "Aktifkan", "notSupported": "Tidak didukung di browser ini" },
+    "language": { "title": "Bahasa", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "Keluar", "version": "Versi"
+  },
+  "notifBanner": { "title": "Tetap terhubung", "subtitle": "Dapatkan notifikasi saat ada komentar atau peringatan cuaca.", "allow": "Izinkan notifikasi", "notNow": "Tidak sekarang", "enabling": "Mengaktifkan…" },
+  "login": { "welcome": "Selamat datang kembali", "create": "Buat akun", "name": "Nama Anda", "email": "Alamat email", "password": "Kata sandi (min. 6 karakter)", "signIn": "Masuk", "register": "Buat akun", "noAccount": "Belum punya akun? Daftar", "hasAccount": "Sudah punya akun? Masuk", "chooseLanguage": "Pilih bahasa Anda", "tagline": "Diagnostik tanaman bertenaga AI untuk petani kecil", "selectAndContinue": "Ketuk bahasa untuk melanjutkan" }
+}

@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "কমিউনিটি ফিড", "cropsense": "CropSense", "resources": "রিসোর্স হাব", "profile": "প্রোফাইল" },
+  "common": { "loading": "লোড হচ্ছে…", "error": "কিছু একটা ভুল হয়েছে", "retry": "আবার চেষ্টা করুন", "signOut": "সাইন আউট", "share": "শেয়ার করুন", "online": "অনলাইন", "save": "সংরক্ষণ করুন", "cancel": "বাতিল" },
+  "feed": {
+    "title": "কমিউনিটি ফিড", "subtitle": "কমিউনিটি আবিষ্কার ও সতর্কতা",
+    "mission": "একটি AI-চালিত সামাজিক প্ল্যাটফর্ম যা অফলাইন ডায়াগনস্টিক্সের মাধ্যমে ক্ষুদ্র কৃষকদের ক্ষমতায়ন করে।",
+    "noFindings": "এখনও কোনো আবিষ্কার নেই", "noFindingsHint": "মাঠ পর্যবেক্ষণ শেয়ার করতে প্রথম হন!",
+    "filter": { "all": "সব", "earlyBlight": "আর্লি ব্লাইট", "lateBlight": "লেট ব্লাইট", "commonRust": "সাধারণ মরিচা", "leafCurl": "পাতা কুঁকড়ানো", "powderyMildew": "পাউডারি মিলডিউ", "allClear": "সুস্থ", "other": "অন্যান্য" },
+    "comments": { "placeholder": "মন্তব্য যোগ করুন…", "noComments": "এখনও কোনো মন্তব্য নেই — প্রথম হন!", "error": "মন্তব্য পোস্ট করা যায়নি। আবার চেষ্টা করুন।" }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "AI-চালিত অফলাইন ফসল ডায়াগনস্টিক্স",
+    "scan": "গাছ স্ক্যান করুন", "scanning": "বিশ্লেষণ করা হচ্ছে…", "newScan": "নতুন স্ক্যান",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "ডেমো মোড" },
+    "treatment": { "applied": "চিকিৎসা প্রয়োগ হয়েছে", "markApplied": "চিকিৎসা প্রয়োগ চিহ্নিত করুন", "loggedAt": "আজ লগ করা হয়েছে" },
+    "voice": { "start": "ভয়েস গাইডেন্স শুরু করুন", "stop": "ভয়েস গাইডেন্স বন্ধ করুন" }
+  },
+  "resources": {
+    "title": "রিসোর্স হাব", "subtitle": "আবহাওয়া, ফসলের স্বাস্থ্য ও চিকিৎসা প্রোটোকল",
+    "tabs": { "weather": "আবহাওয়া", "crops": "আমার ফসল", "treatments": "চিকিৎসা" }
+  },
+  "profile": {
+    "title": "প্রোফাইল", "memberSince": "সদস্যপদ থেকে",
+    "stats": { "scans": "স্ক্যান", "posts": "পোস্ট" },
+    "notifications": { "title": "বিজ্ঞপ্তি", "subtitle": "মন্তব্য ও আবহাওয়ার সতর্কতা", "enabled": "সক্রিয়", "enable": "সক্রিয় করুন", "notSupported": "এই ব্রাউজারে সমর্থিত নয়" },
+    "language": { "title": "ভাষা", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "সাইন আউট", "version": "সংস্করণ"
+  },
+  "notifBanner": { "title": "আপডেট থাকুন", "subtitle": "যখন কেউ আপনার পোস্টে মন্তব্য করে বা আবহাওয়া সতর্কতা আসে তখন বিজ্ঞপ্তি পান।", "allow": "বিজ্ঞপ্তি অনুমতি দিন", "notNow": "এখন নয়", "enabling": "সক্রিয় করা হচ্ছে…" },
+  "login": { "welcome": "আবার স্বাগতম", "create": "অ্যাকাউন্ট তৈরি করুন", "name": "আপনার নাম", "email": "ইমেইল ঠিকানা", "password": "পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)", "signIn": "সাইন ইন", "register": "অ্যাকাউন্ট তৈরি করুন", "noAccount": "অ্যাকাউন্ট নেই? সাইন আপ করুন", "hasAccount": "অ্যাকাউন্ট আছে? সাইন ইন করুন", "chooseLanguage": "আপনার ভাষা বেছে নিন", "tagline": "ক্ষুদ্র কৃষকদের জন্য AI-চালিত ফসল নির্ণয়", "selectAndContinue": "চালিয়ে যেতে একটি ভাষা ট্যাপ করুন" }
+}

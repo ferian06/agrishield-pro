@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "Feed da Comunidade", "cropsense": "CropSense", "resources": "Hub de Recursos", "profile": "Perfil" },
+  "common": { "loading": "Carregando…", "error": "Algo deu errado", "retry": "Tentar Novamente", "signOut": "Sair", "share": "Compartilhar", "online": "Online", "save": "Salvar", "cancel": "Cancelar" },
+  "feed": {
+    "title": "Feed da Comunidade", "subtitle": "Descobertas & alertas da comunidade",
+    "mission": "Uma plataforma colaborativa com IA que capacita pequenos agricultores com diagnósticos offline e inteligência coletiva.",
+    "noFindings": "Sem descobertas ainda", "noFindingsHint": "Seja o primeiro a compartilhar uma observação de campo!",
+    "filter": { "all": "Todos", "earlyBlight": "Pinta Precoce", "lateBlight": "Pinta Tardia", "commonRust": "Ferrugem Comum", "leafCurl": "Enrolamento Foliar", "powderyMildew": "Oídio", "allClear": "Sem Problemas", "other": "Outro" },
+    "comments": { "placeholder": "Adicionar comentário…", "noComments": "Sem comentários ainda — seja o primeiro!", "error": "Não foi possível postar. Tente novamente." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Diagnóstico de culturas com IA offline",
+    "scan": "Escanear Planta", "scanning": "Analisando…", "newScan": "Novo Scan",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Modo Demo" },
+    "treatment": { "applied": "Tratamento Aplicado", "markApplied": "Marcar Tratamento Aplicado", "loggedAt": "Registrado hoje às" },
+    "voice": { "start": "Iniciar Guia de Voz", "stop": "Parar Guia de Voz" }
+  },
+  "resources": {
+    "title": "Hub de Recursos", "subtitle": "Clima, saúde das culturas & protocolos de tratamento",
+    "tabs": { "weather": "Clima", "crops": "Minhas Culturas", "treatments": "Tratamentos" }
+  },
+  "profile": {
+    "title": "Perfil", "memberSince": "Membro desde",
+    "stats": { "scans": "Scans", "posts": "Publicações" },
+    "notifications": { "title": "Notificações", "subtitle": "Alertas de comentários & clima", "enabled": "Ativado", "enable": "Ativar", "notSupported": "Não suportado neste navegador" },
+    "language": { "title": "Idioma", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "Sair", "version": "Versão"
+  },
+  "notifBanner": { "title": "Fique informado", "subtitle": "Receba alertas quando alguém comentar em sua publicação ou quando houver um alerta de clima.", "allow": "Permitir notificações", "notNow": "Agora não", "enabling": "Ativando…" },
+  "login": { "welcome": "Bem-vindo de volta", "create": "Criar conta", "name": "Seu nome", "email": "Endereço de e-mail", "password": "Senha (mín. 6 caracteres)", "signIn": "Entrar", "register": "Criar conta", "noAccount": "Não tem conta? Cadastre-se", "hasAccount": "Já tem conta? Entrar", "chooseLanguage": "Escolha seu idioma", "tagline": "Diagnóstico de culturas com IA para pequenos agricultores", "selectAndContinue": "Toque em um idioma para continuar" }
+}

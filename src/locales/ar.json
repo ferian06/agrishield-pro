@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "التغذية المجتمعية", "cropsense": "CropSense", "resources": "مركز الموارد", "profile": "الملف الشخصي" },
+  "common": { "loading": "جار التحميل…", "error": "حدث خطأ ما", "retry": "حاول مجددا", "signOut": "تسجيل الخروج", "share": "مشاركة", "online": "متصل", "save": "حفظ", "cancel": "إلغاء" },
+  "feed": {
+    "title": "التغذية المجتمعية", "subtitle": "نتائج وتنبيهات المجتمع",
+    "mission": "منصة مجتمعية مدعومة بالذكاء الاصطناعي لتمكين صغار المزارعين من خلال التشخيص دون اتصال.",
+    "noFindings": "لا توجد نتائج بعد", "noFindingsHint": "كن أول من يشارك ملاحظة ميدانية!",
+    "filter": { "all": "الكل", "earlyBlight": "الإصابة المبكرة", "lateBlight": "الإصابة المتأخرة", "commonRust": "الصدأ الشائع", "leafCurl": "تجعد الأوراق", "powderyMildew": "البياض الدقيقي", "allClear": "سليم", "other": "أخرى" },
+    "comments": { "placeholder": "أضف تعليقاً…", "noComments": "لا تعليقات بعد — كن أول من يعلق!", "error": "تعذر نشر التعليق. حاول مجددا." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "تشخيص المحاصيل بالذكاء الاصطناعي",
+    "scan": "مسح النبات", "scanning": "جار التحليل…", "newScan": "مسح جديد",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "وضع العرض" },
+    "treatment": { "applied": "تم تطبيق العلاج", "markApplied": "وضع علامة على تطبيق العلاج", "loggedAt": "مسجل اليوم في" },
+    "voice": { "start": "بدء التوجيه الصوتي", "stop": "إيقاف التوجيه الصوتي" }
+  },
+  "resources": {
+    "title": "مركز الموارد", "subtitle": "الطقس وصحة المحاصيل وبروتوكولات العلاج",
+    "tabs": { "weather": "الطقس", "crops": "محاصيلي", "treatments": "العلاجات" }
+  },
+  "profile": {
+    "title": "الملف الشخصي", "memberSince": "عضو منذ",
+    "stats": { "scans": "المسوحات", "posts": "المنشورات" },
+    "notifications": { "title": "الإشعارات", "subtitle": "تنبيهات للتعليقات والطقس", "enabled": "مُفعّل", "enable": "تفعيل", "notSupported": "غير مدعوم في هذا المتصفح" },
+    "language": { "title": "اللغة", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "تسجيل الخروج", "version": "الإصدار"
+  },
+  "notifBanner": { "title": "ابق على اطلاع", "subtitle": "احصل على إشعار عند تعليق أحدهم على منشورك أو عند وجود تنبيه طقس.", "allow": "السماح بالإشعارات", "notNow": "ليس الآن", "enabling": "جار التفعيل…" },
+  "login": { "welcome": "مرحباً بعودتك", "create": "إنشاء حساب", "name": "اسمك", "email": "البريد الإلكتروني", "password": "كلمة المرور (٦ أحرف على الأقل)", "signIn": "تسجيل الدخول", "register": "إنشاء حساب", "noAccount": "ليس لديك حساب؟ سجل الآن", "hasAccount": "لديك حساب؟ تسجيل الدخول", "chooseLanguage": "اختر لغتك", "tagline": "تشخيص المحاصيل بالذكاء الاصطناعي لصغار المزارعين", "selectAndContinue": "اضغط على لغة للمتابعة" }
+}

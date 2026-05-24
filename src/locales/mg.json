@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "Fandrosoana ny Vondrom-bahoaka", "cropsense": "CropSense", "resources": "Ivon'ny Loharanon-karena", "profile": "Mombamomba" },
+  "common": { "loading": "Mampiditra…", "error": "Nisy olana teo", "retry": "Andramo Indray", "signOut": "Hivoaka", "share": "Zarao", "online": "Online", "save": "Tehirizo", "cancel": "Foano" },
+  "feed": {
+    "title": "Fandrosoana ny Vondrom-bahoaka", "subtitle": "Fikarohana & fampitandremana ny vondrom-bahoaka",
+    "mission": "Sehatra iombonan'ny vondrom-bahoaka mifototra amin'ny AI hanampiana ny tantsaha kely amin'ny fanadihadiana tsy misy internet.",
+    "noFindings": "Tsy mbola misy fikarohana", "noFindingsHint": "Aoka ho ianao no voalohany hizara fandinihana!",
+    "filter": { "all": "Rehetra", "earlyBlight": "Fahalovana Voalohany", "lateBlight": "Fahalovana Aoriana", "commonRust": "Apoka Mahazatra", "leafCurl": "Fihodinan'ny Ravina", "powderyMildew": "Mold Vovony", "allClear": "Salama", "other": "Hafa" },
+    "comments": { "placeholder": "Manampy hevitra…", "noComments": "Tsy mbola misy hevitra — aoka ho ianao no voalohany!", "error": "Tsy afaka nandefa hevitra. Andramo indray." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Fanadihadiana ny vokatra amin'ny AI tsy misy internet",
+    "scan": "Skanera ny Zavamaniry", "scanning": "Mandinika…", "newScan": "Skanera Vaovao",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Fomba Demo" },
+    "treatment": { "applied": "Nisy Fitsaboana", "markApplied": "Marika Fitsaboana Natao", "loggedAt": "Voarakitra androany amin'ny" },
+    "voice": { "start": "Atombohy ny Fitarihan-tsanda", "stop": "Atsaharo ny Fitarihan-tsanda" }
+  },
+  "resources": {
+    "title": "Ivon'ny Loharanon-karena", "subtitle": "Toetr'andro, fahasalamana ny vokatra & protokola fitsaboana",
+    "tabs": { "weather": "Toetr'andro", "crops": "Ny Vokatry", "treatments": "Fitsaboana" }
+  },
+  "profile": {
+    "title": "Mombamomba", "memberSince": "Mpikambana hatramin'ny",
+    "stats": { "scans": "Skanera", "posts": "Lahatsoratra" },
+    "notifications": { "title": "Fampandrenesana", "subtitle": "Fampitandremana amin'ny hevitra & toetr'andro", "enabled": "Voavoatra", "enable": "Avoatra", "notSupported": "Tsy tohanan'ny navigateur ity" },
+    "language": { "title": "Fiteny", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "Hivoaka", "version": "Dikan-tsoratra"
+  },
+  "notifBanner": { "title": "Manaraha ny vaovao", "subtitle": "Mahazo fampandrenesana rehefa misy manome hevitra na misy fampitandremana toetr'andro.", "allow": "Avelao fampandrenesana", "notNow": "Tsy izao", "enabling": "Avoatra…" },
+  "login": { "welcome": "Tonga soa indray", "create": "Hamorona kaonty", "name": "Ny anaranao", "email": "Adiresy email", "password": "Teny miafina (farafahakeliny 6)", "signIn": "Miditra", "register": "Hamorona kaonty", "noAccount": "Tsy manana kaonty? Miraikitra", "hasAccount": "Manana kaonty? Miditra", "chooseLanguage": "Mifidiana fiteny", "tagline": "Fanadihadiana vokatra AI ho an'ny tantsaha kely", "selectAndContinue": "Tsindrio fiteny iray hanohy" }
+}

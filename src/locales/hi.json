@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "समुदाय फ़ीड", "cropsense": "CropSense", "resources": "संसाधन केंद्र", "profile": "प्रोफ़ाइल" },
+  "common": { "loading": "लोड हो रहा है…", "error": "कुछ गलत हुआ", "retry": "पुनः प्रयास करें", "signOut": "साइन आउट", "share": "साझा करें", "online": "ऑनलाइन", "save": "सहेजें", "cancel": "रद्द करें" },
+  "feed": {
+    "title": "समुदाय फ़ीड", "subtitle": "सामुदायिक खोज और अलर्ट",
+    "mission": "AI-संचालित सामुदायिक मंच जो छोटे किसानों को ऑफलाइन निदान के साथ सशक्त बनाता है।",
+    "noFindings": "अभी तक कोई खोज नहीं", "noFindingsHint": "क्षेत्र अवलोकन साझा करने वाले पहले बनें!",
+    "filter": { "all": "सभी", "earlyBlight": "प्रारंभिक झुलसा", "lateBlight": "पछेती झुलसा", "commonRust": "सामान्य रतुआ", "leafCurl": "पत्ती मुड़ना", "powderyMildew": "चूर्णिल आसिता", "allClear": "स्वस्थ", "other": "अन्य" },
+    "comments": { "placeholder": "टिप्पणी जोड़ें…", "noComments": "अभी तक कोई टिप्पणी नहीं — पहले बनें!", "error": "टिप्पणी पोस्ट नहीं हो सकी। पुनः प्रयास करें।" }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "AI-संचालित ऑफलाइन फसल निदान",
+    "scan": "पौधा स्कैन करें", "scanning": "विश्लेषण हो रहा है…", "newScan": "नया स्कैन",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "डेमो मोड" },
+    "treatment": { "applied": "उपचार लागू", "markApplied": "उपचार लागू चिह्नित करें", "loggedAt": "आज दर्ज किया गया" },
+    "voice": { "start": "वॉयस गाइडेंस शुरू करें", "stop": "वॉयस गाइडेंस रोकें" }
+  },
+  "resources": {
+    "title": "संसाधन केंद्र", "subtitle": "मौसम, फसल स्वास्थ्य और उपचार प्रोटोकॉल",
+    "tabs": { "weather": "मौसम", "crops": "मेरी फसलें", "treatments": "उपचार" }
+  },
+  "profile": {
+    "title": "प्रोफ़ाइल", "memberSince": "सदस्य बने",
+    "stats": { "scans": "स्कैन", "posts": "पोस्ट" },
+    "notifications": { "title": "सूचनाएं", "subtitle": "टिप्पणी और मौसम अलर्ट", "enabled": "सक्षम", "enable": "सक्षम करें", "notSupported": "इस ब्राउज़र पर समर्थित नहीं" },
+    "language": { "title": "भाषा", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "साइन आउट", "version": "संस्करण"
+  },
+  "notifBanner": { "title": "जुड़े रहें", "subtitle": "जब कोई आपकी पोस्ट पर टिप्पणी करे या मौसम अलर्ट हो तो सूचना पाएं।", "allow": "सूचनाएं अनुमति दें", "notNow": "अभी नहीं", "enabling": "सक्षम हो रहा है…" },
+  "login": { "welcome": "वापसी पर स्वागत", "create": "खाता बनाएं", "name": "आपका नाम", "email": "ईमेल पता", "password": "पासवर्ड (कम से कम 6 अक्षर)", "signIn": "साइन इन", "register": "खाता बनाएं", "noAccount": "खाता नहीं है? साइन अप करें", "hasAccount": "खाता है? साइन इन करें", "chooseLanguage": "अपनी भाषा चुनें", "tagline": "छोटे किसानों के लिए AI-संचालित फसल निदान", "selectAndContinue": "जारी रखने के लिए भाषा चुनें" }
+}

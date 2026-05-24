@@ -6,9 +6,27 @@ import { userService } from '../services/userService';
 import { notificationService } from '../services/notificationService';
 
 const LANGS = [
-  { code: 'en', label: 'English',   flag: '🇬🇧' },
-  { code: 'fr', label: 'Français',  flag: '🇫🇷' },
-  { code: 'sw', label: 'Kiswahili', flag: '🇰🇪' },
+  { code: 'en',  label: 'English',           flag: '🇬🇧' },
+  { code: 'fr',  label: 'Français',          flag: '🇫🇷' },
+  { code: 'sw',  label: 'Kiswahili',         flag: '🇰🇪' },
+  { code: 'mfe', label: 'Kreol Morisyen',    flag: '🇲🇺' },
+  { code: 'pt',  label: 'Português',         flag: '🇲🇿' },
+  { code: 'ar',  label: 'عربية',             flag: '🇲🇦' },
+  { code: 'hi',  label: 'हिन्दी',             flag: '🇮🇳' },
+  { code: 'am',  label: 'አማርኛ',              flag: '🇪🇹' },
+  { code: 'ha',  label: 'Hausa',             flag: '🇳🇬' },
+  { code: 'yo',  label: 'Yorùbá',            flag: '🇳🇬' },
+  { code: 'ig',  label: 'Igbo',              flag: '🇳🇬' },
+  { code: 'zu',  label: 'IsiZulu',           flag: '🇿🇦' },
+  { code: 'so',  label: 'Soomaali',          flag: '🇸🇴' },
+  { code: 'mg',  label: 'Malagasy',          flag: '🇲🇬' },
+  { code: 'sn',  label: 'ChiShona',          flag: '🇿🇼' },
+  { code: 'bn',  label: 'বাংলা',              flag: '🇧🇩' },
+  { code: 'tl',  label: 'Filipino',          flag: '🇵🇭' },
+  { code: 'vi',  label: 'Tiếng Việt',        flag: '🇻🇳' },
+  { code: 'id',  label: 'Bahasa Indonesia',  flag: '🇮🇩' },
+  { code: 'th',  label: 'ภาษาไทย',           flag: '🇹🇭' },
+  { code: 'ur',  label: 'اردو',              flag: '🇵🇰' },
 ];
 
 export default function Profile() {
@@ -137,19 +155,19 @@ export default function Profile() {
           <Globe size={13} className="text-slate-400" />
           <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{t('profile.language.title')}</p>
         </div>
-        <div className="px-5 py-4 flex gap-2">
+        <div className="px-5 py-4 grid grid-cols-4 gap-2">
           {LANGS.map(({ code, label, flag }) => (
             <button
               key={code}
               onClick={() => changeLanguage(code)}
-              className={`flex-1 flex flex-col items-center gap-1 py-3 rounded-xl text-xs font-bold transition-all border ${
+              className={`flex flex-col items-center gap-1 py-3 rounded-xl text-[10px] font-bold transition-all border ${
                 i18n.language === code
                   ? 'bg-forest-mid text-white border-forest-mid shadow-sm'
                   : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
               }`}
             >
               <span className="text-lg">{flag}</span>
-              {label}
+              <span className="text-center leading-tight">{label}</span>
             </button>
           ))}
         </div>

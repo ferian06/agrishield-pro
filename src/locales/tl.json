@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "Community Feed", "cropsense": "CropSense", "resources": "Resource Hub", "profile": "Profile" },
+  "common": { "loading": "Naglo-load…", "error": "May nangyaring mali", "retry": "Subukan Muli", "signOut": "Mag-sign Out", "share": "Ibahagi", "online": "Online", "save": "I-save", "cancel": "Ikansela" },
+  "feed": {
+    "title": "Community Feed", "subtitle": "Mga natuklasan at babala ng komunidad",
+    "mission": "Isang platform na pinapatakbo ng AI para sa maliliit na magsasaka sa pamamagitan ng offline na diagnostics.",
+    "noFindings": "Wala pang natuklasan", "noFindingsHint": "Maging una sa pagbabahagi ng obserbasyon!",
+    "filter": { "all": "Lahat", "earlyBlight": "Early Blight", "lateBlight": "Late Blight", "commonRust": "Karaniwang Kalawang", "leafCurl": "Pag-kulot ng Dahon", "powderyMildew": "Powdery Mildew", "allClear": "Maayos", "other": "Iba pa" },
+    "comments": { "placeholder": "Magdagdag ng komento…", "noComments": "Wala pang komento — maging una!", "error": "Hindi mapost ang komento. Subukan muli." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Offline na pagsusuri ng pananim gamit ang AI",
+    "scan": "I-scan ang Halaman", "scanning": "Sinusuri…", "newScan": "Bagong Scan",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Demo Mode" },
+    "treatment": { "applied": "Inilapat na ang Lunas", "markApplied": "Markahan ang Inilapat na Lunas", "loggedAt": "Naitala ngayon ng" },
+    "voice": { "start": "Simulan ang Voice Guidance", "stop": "Itigil ang Voice Guidance" }
+  },
+  "resources": {
+    "title": "Resource Hub", "subtitle": "Panahon, kalusugan ng pananim at mga protocol sa paggamot",
+    "tabs": { "weather": "Panahon", "crops": "Aking mga Pananim", "treatments": "Mga Lunas" }
+  },
+  "profile": {
+    "title": "Profile", "memberSince": "Miyembro simula",
+    "stats": { "scans": "Mga Scan", "posts": "Mga Post" },
+    "notifications": { "title": "Mga Abiso", "subtitle": "Mga alerto para sa mga komento at panahon", "enabled": "Naka-enable", "enable": "I-enable", "notSupported": "Hindi sinusuportahan ng browser na ito" },
+    "language": { "title": "Wika", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "Mag-sign Out", "version": "Bersyon"
+  },
+  "notifBanner": { "title": "Manatiling updated", "subtitle": "Makatanggap ng abiso kapag may nagkomento o may babala sa panahon.", "allow": "Payagan ang mga abiso", "notNow": "Hindi ngayon", "enabling": "Ine-enable…" },
+  "login": { "welcome": "Maligayang pagbabalik", "create": "Gumawa ng account", "name": "Iyong pangalan", "email": "Email address", "password": "Password (min. 6 characters)", "signIn": "Mag-sign in", "register": "Gumawa ng account", "noAccount": "Walang account? Mag-sign up", "hasAccount": "May account? Mag-sign in", "chooseLanguage": "Piliin ang iyong wika", "tagline": "AI na pagsusuri ng pananim para sa maliliit na magsasaka", "selectAndContinue": "I-tap ang isang wika para magpatuloy" }
+}

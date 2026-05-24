@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "Feed-ka Bulshada", "cropsense": "CropSense", "resources": "Xarunta Kheyraadka", "profile": "Xogta Shakhsiga" },
+  "common": { "loading": "Waa la rarayaa…", "error": "Wax cilad ah ayaa dhacday", "retry": "Isku Day Mar Kale", "signOut": "Ka Bax", "share": "La Wadaag", "online": "Online", "save": "Kaydi", "cancel": "Jooji" },
+  "feed": {
+    "title": "Feed-ka Bulshada", "subtitle": "Helitaannada & digniinadaha bulshada",
+    "mission": "Baraha bulshada oo AI taageera si loo caawiyo beeralayda yaryar iyagoo isticmaalaya baaritaanka offline.",
+    "noFindings": "Wali ma jiraan helitaannado", "noFindingsHint": "Noqo kii ugu horeeyay ee wadaagta daraasad!",
+    "filter": { "all": "Dhammaan", "earlyBlight": "Cudurka Hore", "lateBlight": "Cudurka Dambe", "commonRust": "Sadexdaha Guud", "leafCurl": "Xididdoobista Caleemaha", "powderyMildew": "Powdery Mildew", "allClear": "Caafimaad Wanaagsan", "other": "Kale" },
+    "comments": { "placeholder": "Ku dar faallo…", "noComments": "Wali ma jiraan faallooyiin — noqo kii ugu horeeyay!", "error": "Faalladu ma dirin. Isku day mar kale." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Baaritaanka beerta oo AI ah offline",
+    "scan": "Baadh Dhirta", "scanning": "Waa la baadhanayaa…", "newScan": "Baadis Cusub",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Qaabka Demo" },
+    "treatment": { "applied": "Daawo La Isticmaalay", "markApplied": "Calaamadee Daawo La Isticmaalay", "loggedAt": "Maanta waxaa la diiwaan geliyey" },
+    "voice": { "start": "Bilow Hagitaanka Codka", "stop": "Jooji Hagitaanka Codka" }
+  },
+  "resources": {
+    "title": "Xarunta Kheyraadka", "subtitle": "Cimilada, caafimaadka beerta & xeerarka daawaynta",
+    "tabs": { "weather": "Cimilada", "crops": "Beerahayga", "treatments": "Daawaynta" }
+  },
+  "profile": {
+    "title": "Xogta Shakhsiga", "memberSince": "Xubno ahaan tan iyo",
+    "stats": { "scans": "Baadhistaha", "posts": "Qoraalada" },
+    "notifications": { "title": "Ogeysiisyada", "subtitle": "Digniinadaha faallooyinka & cimilada", "enabled": "Waa furan yahay", "enable": "Fur", "notSupported": "Kuma taageerayo browser-kan" },
+    "language": { "title": "Luqadda", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "Ka Bax", "version": "Nooca"
+  },
+  "notifBanner": { "title": "La soco waxyaabaha", "subtitle": "Hel ogeysiis marka qof faallo ka bixiyo ama marka ay jirto digniin cimilada.", "allow": "Oggolow ogeysiisyada", "notNow": "Hadda ma ahan", "enabling": "Waa la furayayaa…" },
+  "login": { "welcome": "Ku soo dhawow", "create": "Samee koonto", "name": "Magacaaga", "email": "Ciwaanka emailka", "password": "Furaha sirta (ugu yaraan 6)", "signIn": "Gal", "register": "Samee koonto", "noAccount": "Ma lihid koonto? Isdiiwaangeli", "hasAccount": "Koonto ma leedahay? Gal", "chooseLanguage": "Dooro luqaddaada", "tagline": "Baaritaanka beerta AI loogu talagalay beeralayda yaryar", "selectAndContinue": "Riix luqad si aad u sii waddo" }
+}

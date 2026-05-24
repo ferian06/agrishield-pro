@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "Ukudla Komuzi", "cropsense": "CropSense", "resources": "Ikhaya Lezinsiza", "profile": "Iphrofaili" },
+  "common": { "loading": "Iyalayisha…", "error": "Kunephutha elithile", "retry": "Zama Futhi", "signOut": "Phuma", "share": "Yabelana", "online": "Online", "save": "Londoloza", "cancel": "Khansela" },
+  "feed": {
+    "title": "Ukudla Komuzi", "subtitle": "Izitholakalo & izexwayiso zomuzi",
+    "mission": "Inkundla yomphakathi esekelwa yi-AI ukuze isize abalimi abancane nge-diagnostics engadingi i-inthanethi.",
+    "noFindings": "Azikho izitholakalo", "noFindingsHint": "Yiba wokuqala ukwabelana nokuqashelwa!",
+    "filter": { "all": "Konke", "earlyBlight": "Ukubola Kokuqala", "lateBlight": "Ukubola Kwamuva", "commonRust": "Ukurustela Ojwalelekile", "leafCurl": "Ukupenduka Kwamakhasi", "powderyMildew": "Imbangela Yempuphu", "allClear": "Konke Kulungile", "other": "Okunye" },
+    "comments": { "placeholder": "Engeza amazwana…", "noComments": "Azikho amazwana — yiba wokuqala!", "error": "Yehlulekile ukuthumela. Zama futhi." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Ukuhlola izitshalo nge-AI engadingi inthanethi",
+    "scan": "Skena Utshalwa", "scanning": "Iyahlaziya…", "newScan": "Uskeni Omusha",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Imodi Yedemo" },
+    "treatment": { "applied": "Uphathiwe", "markApplied": "Phawula Ukuphathwa", "loggedAt": "Kubhaliswe namuhla ngo" },
+    "voice": { "start": "Qala Ukuqondisa Ngezwi", "stop": "Misa Ukuqondisa Ngezwi" }
+  },
+  "resources": {
+    "title": "Ikhaya Lezinsiza", "subtitle": "Isimo sezulu, impilo yezitshalo & izinkambiso zokwelapha",
+    "tabs": { "weather": "Isimo Sezulu", "crops": "Izitshalo Zami", "treatments": "Ukwelapha" }
+  },
+  "profile": {
+    "title": "Iphrofaili", "memberSince": "Ilungu kusukela",
+    "stats": { "scans": "Iziskeni", "posts": "Izithunyelwa" },
+    "notifications": { "title": "Izaziso", "subtitle": "Izexwayiso zamazwana nezimo zezulu", "enabled": "Kunikwe amandla", "enable": "Nika Amandla", "notSupported": "Akusekeli kule-browser" },
+    "language": { "title": "Ulimi", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "Phuma", "version": "Inguqulo"
+  },
+  "notifBanner": { "title": "Hlala wazi", "subtitle": "Thola isaziso lapho umuntu ephawula noma kunomqulu wezulu.", "allow": "Vumela izaziso", "notNow": "Hhayi manje", "enabling": "Iyavula…" },
+  "login": { "welcome": "Siyakwamukela", "create": "Yenza i-akhawunti", "name": "Igama lakho", "email": "Ikheli le-imeyili", "password": "Iphasiwedi (okungenani 6)", "signIn": "Ngena", "register": "Yenza i-akhawunti", "noAccount": "Awunayo i-akhawunti? Bhalisela", "hasAccount": "Unayo i-akhawunti? Ngena", "chooseLanguage": "Khetha ulimi lwakho", "tagline": "Ukuhlola izitshalo nge-AI yabalimi abancane", "selectAndContinue": "Thepha ulimi ukuze uqhubeke" }
+}

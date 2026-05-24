@@ -1,0 +1,31 @@
+{
+  "nav": { "feed": "Ciyarwa ta Al'umma", "cropsense": "CropSense", "resources": "Cibiyar Albarkatun", "profile": "Bayani" },
+  "common": { "loading": "Ana lodawa…", "error": "Wani kuskure ya faru", "retry": "Sake Gwadawa", "signOut": "Fita", "share": "Raba", "online": "Online", "save": "Ajiye", "cancel": "Soke" },
+  "feed": {
+    "title": "Ciyarwa ta Al'umma", "subtitle": "Bincike da faɗakarwa na al'umma",
+    "mission": "Dandamalin al'umma mai ƙarfin AI don taimaka wa ƙananan manoma ta hanyar bincike marar intanet.",
+    "noFindings": "Babu bincike tukuna", "noFindingsHint": "Zama na farko don raba lura!",
+    "filter": { "all": "Duka", "earlyBlight": "Cututtukan Farko", "lateBlight": "Cututtukan Ƙarshe", "commonRust": "Tsatsa Na Kowa", "leafCurl": "Lanƙwasar Ganyaye", "powderyMildew": "Naman Kaza Fari", "allClear": "Lafiya", "other": "Sauran" },
+    "comments": { "placeholder": "Ƙara sharhi…", "noComments": "Babu sharhi tukuna — zama na farko!", "error": "Ba a iya aika sharhi. Sake gwadawa." }
+  },
+  "cropsense": {
+    "title": "CropSense", "subtitle": "Binciken amfanin gona na AI marar intanet",
+    "scan": "Duba Tsiro", "scanning": "Ana nazari…", "newScan": "Sabon Duba",
+    "aiProvider": { "groq": "Groq AI", "gemini": "Gemini AI", "huggingface": "HuggingFace AI", "stub": "Yanayin Demo" },
+    "treatment": { "applied": "An Yi Maganin", "markApplied": "Yiwa Maganin Alama", "loggedAt": "An yi rajista yau a" },
+    "voice": { "start": "Fara Jagorar Murya", "stop": "Dakatar da Jagorar Murya" }
+  },
+  "resources": {
+    "title": "Cibiyar Albarkatun", "subtitle": "Yanayin ƙasa, lafiyar amfanin gona & ka'idodin magani",
+    "tabs": { "weather": "Yanayin Ƙasa", "crops": "Gonar Na", "treatments": "Magungunan" }
+  },
+  "profile": {
+    "title": "Bayani", "memberSince": "Memba tun",
+    "stats": { "scans": "Duba", "posts": "Posts" },
+    "notifications": { "title": "Sanarwa", "subtitle": "Faɗakarwa don sharhi da yanayin ƙasa", "enabled": "An kunna", "enable": "Kunna", "notSupported": "Ba a goyan baya a wannan mai bincike" },
+    "language": { "title": "Harshe", "en": "English", "fr": "Français", "sw": "Kiswahili", "mfe": "Kreol Morisyen", "pt": "Português", "ar": "عربية", "hi": "हिन्दी", "am": "አማርኛ", "ha": "Hausa", "yo": "Yorùbá", "ig": "Igbo", "zu": "IsiZulu", "so": "Soomaali", "mg": "Malagasy", "sn": "ChiShona", "bn": "বাংলা", "tl": "Filipino", "vi": "Tiếng Việt", "id": "Bahasa Indonesia", "th": "ภาษาไทย", "ur": "اردو" },
+    "signOut": "Fita", "version": "Sigar"
+  },
+  "notifBanner": { "title": "Kasance a cikin layi", "subtitle": "Sami sanarwa lokacin da wani ya ƙara sharhi ko akwai faɗakarwar yanayin ƙasa.", "allow": "Yarda da sanarwa", "notNow": "Ba yanzu", "enabling": "Ana kunna…" },
+  "login": { "welcome": "Barka da dawowa", "create": "Ƙirƙiri asusun", "name": "Sunanka", "email": "Adireshin imel", "password": "Kalmar sirri (min. 6)", "signIn": "Shiga", "register": "Ƙirƙiri asusun", "noAccount": "Ba ka da asusun? Yi rajista", "hasAccount": "Kana da asusun? Shiga", "chooseLanguage": "Zaɓi harshenka", "tagline": "Binciken amfanin gona na AI don ƙananan manoma", "selectAndContinue": "Danna harshe don ci gaba" }
+}
